@@ -1,4 +1,5 @@
 import csv
+from collections import defaultdict
 
 
 def create_column_dicts(path_to_csv):
@@ -52,4 +53,21 @@ def write_col_keys(cols):
 		for i, col in cols.items():
 			column_key_writer.writerow([i,col])
 
+
+def groupby_cbsa(path_to_csv, select_cols, cols, cols_inds):
+	tract_count = defaultdict(int)
+	pop00_count = defaultdict(int)
+	pop10_count = defaultdict(int)
+	ppchg_avg = defaultdict(int)
+	with open(path_to_csv, newline = '') as csvfile:
+		censusreader = csv.reader(csvfile, delimiter = ',')
+		row = next(censusreader)
+		for row in censusreader:
+			tract_count[row[cols_inds['CBSA09']]] += 1
+			pop00_count[row[cols_inds['CBSA09']]] += int(row[cols_inds['POP00']])
+			pop10_count[row[cols_inds['CBSA09']]] += int(row[cols_inds['POP10']])
+			ppchg_avg[row[cols_inds['CBSA09']]] += float(row[cols_inds['PPCHG']])
+		for k, v in ppchg_avg.items():
+			ppchg_avg[k] = round(ppchg_avg[k]/tract_count[k],2)
+	return dict(tract_count), dict(pop00_count), dict(pop10_count), dict(ppchg_avg) 
 
