@@ -6,7 +6,7 @@ There are 74003 rows; row 0 is column names; 74002 rows of census data
 
 CREATE VIRTUALENV WITH JUST PYTHON3.7.3
 
-Write new csv with only the necessary columns?
+
 
 CSI = 3 if outside of CBSA
 

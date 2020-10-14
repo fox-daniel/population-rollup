@@ -21,13 +21,14 @@ select_cols= ['GEOID', 'CBSA09', 'CBSA_T', 'POP00', 'POP10', 'PPCHG']
 
 
 path_to_test_1 = '../insight_testsuite/tests/test_1/input/censustract-00-10.csv'
-cbsa_title, tract_count, pop00_count, pop10_count, ppchg_avg, error_rows = population_funcs.groupby_cbsa(path_to_csv, select_cols, cols, cols_inds, 45)
-print(cbsa_title.items())
-print(tract_count.items())
-print(pop00_count.items())
-print(pop10_count.items())
-print(ppchg_avg.items())
-print(error_rows)
+cbsa_title, tract_count, pop00_count, pop10_count, ppchg_avg, error_rows = population_funcs.groupby_cbsa(path_to_csv, cols, cols_inds, num_rows = 75000)
 
-# path_to_report = '../output/report.csv'
-# population_funcs.write_report(path_to_report, cols, cols_inds, cbsa_title, tract_count, pop00_count, pop10_count, ppchg_avg)
+path_to_report = '../output/report.csv'
+population_funcs.write_report(path_to_report, cols, cols_inds, cbsa_title, tract_count, pop00_count, pop10_count, ppchg_avg)
+
+# print(cbsa_title.items())
+# print(tract_count.items())
+# print(pop00_count.items())
+# print(pop10_count.items())
+# print(ppchg_avg.items())
+# print(error_rows)

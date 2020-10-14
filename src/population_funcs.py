@@ -18,10 +18,10 @@ def create_column_dicts(path_to_csv):
 def print_select_columns(select_cols, cols, cols_inds, num_rows = 5):
 	"""Prints a subset of the columns and rows.
 	Input: 
-	select_cols: list of column names
-	cols: dictionary: {index:column_name}
-	cols_inds: dictionary: {column_name:index}
-	num_rows: number of rows returned, not counting the initial row of column names"""
+	select_cols - list of column names
+	cols - dictionary: {index:column_name}
+	cols_inds - dictionary: {column_name:index}
+	num_rows - number of rows returned, not counting the initial row of column names"""
 	with open('../input/censustract-00-10.csv', newline = '') as csvfile:
 		censusreader = csv.reader(csvfile, delimiter = ',')
 		i = 0
@@ -37,10 +37,10 @@ def print_select_columns(select_cols, cols, cols_inds, num_rows = 5):
 def print_select_cols_and_rows(select_cols, cols, cols_inds, rowstart = 1, rowend = 10):
 	"""Prints a subset of the columns and rows.
 	Input: 
-	select_cols: list of column names
-	cols: dictionary: {index:column_name}
-	cols_inds: dictionary: {column_name:index}
-	num_rows: number of rows returned, not counting the initial row of column names"""
+	select_cols - list of column names
+	cols - dictionary: {index:column_name}
+	cols_inds - dictionary: {column_name:index}
+	num_rows - number of rows returned, not counting the initial row of column names"""
 	with open('../input/censustract-00-10.csv', newline = '') as csvfile:
 		censusreader = csv.reader(csvfile, delimiter = ',')
 		i = 1
@@ -68,7 +68,7 @@ def count_rows():
 
 def write_col_keys(cols):
 	"""Write the columns keys and their indices to file.
-	Input: cols: dictionary: {index:column_name}
+	Input: cols - dictionary: {index:column_name}
 	Output: csv file with each item of dictionary on its own line.
 	"""
 	with open('column_key.csv', 'w', newline = '') as csvfile:
@@ -77,7 +77,17 @@ def write_col_keys(cols):
 			column_key_writer.writerow([i,col])
 
 
-def groupby_cbsa(path_to_csv, select_cols, cols, cols_inds, num_rows = 1000):
+def groupby_cbsa(path_to_csv, cols, cols_inds, num_rows = 1000):
+	"""
+	Aggregate population data into CBSA's and return dictionaries with the CBSA09 code as the key.
+	Input:
+	path_to_csv -  the path to csv file with the population data
+	cols - dictionary: {index:column_name} 
+	cols_inds - dictionary: {column_name:index}
+	num_rows - the maximum number of rows to use as input
+	Output:
+
+	"""
 	cbsa_title = {}
 	tract_count = defaultdict(int)
 	pop00_count = defaultdict(int)
@@ -102,7 +112,7 @@ def groupby_cbsa(path_to_csv, select_cols, cols, cols_inds, num_rows = 1000):
 				break
 		for k, v in ppchg_avg.items():
 			ppchg_avg[k] = round(ppchg_avg[k]/tract_count[k],2)
-	return cbsa_title, dict(tract_count), dict(pop00_count), dict(pop10_count), dict(ppchg_avg), error_rows
+	return cbsa_title, tract_count, pop00_count, pop10_count, ppchg_avg, error_rows
 
 def write_report(path_to_report, cols, cols_inds, cbsa_title, tract_count, pop00_count, pop10_count, ppchg_avg):
 	with open(path_to_report, 'w', newline = '') as csvfile:
