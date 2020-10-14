@@ -1,11 +1,26 @@
 DONT FORGET TO REREAD THE DIRECTIONS
-There are 74003 rows.
+There are 74003 rows; row 0 is column names; 74002 rows of census data
 
+CREATE VIRTUALENV WITH JUST PYTHON3.7.3
 
 Write new csv with only the necessary columns?
 
 CSI = 3 if outside of CBSA
 
+CBSA title has "," so enclose title in double quotes
+
+How will my solution scale? 
+	Test on a larger data set, generate it so it can be used for tests
+
+Tests: separate folder for each test
+	-to run test, move input & output csv's to top-level input and output directories and run code
+	-use pandas to generate input and output files for tests
+	-Unit
+	-End-to-end
+	-move all reused functions to a module in src
+
+Run.sh
+	use python3.7 command in 
 
 For this challenge, we want to know for each Core Based Statistical Area, the
 
@@ -20,7 +35,7 @@ average population percent change for census tracts in this Core Based Statistic
 3. groupby CBSA and: 
 	count number of census tracts
 	sum pop from 2000
-	sum pop from 2000
+	sum pop from 2010
 	mean PCH
 
 For every line that exists in the output file, the following fields should be written in this order:
