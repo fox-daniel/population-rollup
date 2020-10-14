@@ -1,7 +1,10 @@
 x = float("-1.34")
 print(x+2)
 
+import re
 
+x = '12,345'.replace(',', '')
+print(x)
 
 # alist = ["23", "45", "x", "t5", "af", "5"]
 # blist = []

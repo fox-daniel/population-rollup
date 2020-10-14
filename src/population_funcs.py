@@ -81,44 +81,6 @@ def write_col_keys(cols):
             column_key_writer.writerow([i, col])
 
 
-# def groupby_cbsa(path_to_csv, cols, cols_inds, num_rows = 1000):
-# 	"""
-# 	Aggregate population data into CBSA's and return dictionaries with the CBSA09 code as the key.
-# 	Input:
-# 	path_to_csv -  the path to csv file with the population data
-# 	cols - dictionary: {index:column_name}
-# 	cols_inds - dictionary: {column_name:index}
-# 	num_rows - the maximum number of rows to use as input
-# 	Output:
-
-# 	"""
-# 	cbsa_title = {}
-# 	tract_count = defaultdict(int)
-# 	pop00_count = defaultdict(int)
-# 	pop10_count = defaultdict(int)
-# 	ppchg_avg = defaultdict(int)
-# 	error_rows = []
-# 	with open(path_to_csv, newline = '') as csvfile:
-# 		censusreader = csv.reader(csvfile, delimiter = ',')
-# 		row = next(censusreader)
-# 		i = 0
-# 		for row in censusreader:
-# 			try:
-# 				cbsa_title[row[cols_inds['CBSA09']]] = row[cols_inds['CBSA_T']]
-# 				tract_count[row[cols_inds['CBSA09']]] += 1
-# 				pop00_count[row[cols_inds['CBSA09']]] += int(row[cols_inds['POP00']])
-# 				pop10_count[row[cols_inds['CBSA09']]] += int(row[cols_inds['POP10']])
-# 				ppchg_avg[row[cols_inds['CBSA09']]] += float(row[cols_inds['PPCHG']])
-# 			except:
-# 				error_rows.append(i)
-# 			i += 1
-# 			if i >= num_rows:
-# 				break
-# 		for k, v in ppchg_avg.items():
-# 			ppchg_avg[k] = round(ppchg_avg[k]/tract_count[k],2)
-# 	return cbsa_title, tract_count, pop00_count, pop10_count, ppchg_avg, error_rows
-
-
 def groupby_cbsa(path_to_csv, path_to_error_log, select_cols, cols, cols_inds, num_rows=1000):
     """
     Aggregate population data into CBSA's and return dictionaries with the CBSA09 code as the key.
