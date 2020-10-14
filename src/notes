@@ -21,6 +21,7 @@ Tests: separate folder for each test
 	-Unit
 	-End-to-end
 	-move all reused functions to a module in src
+	-test rounding
 
 Run.sh
 	use python3.7 command in 
