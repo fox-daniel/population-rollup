@@ -1,4 +1,7 @@
 DONT FORGET TO REREAD THE DIRECTIONS
+DONT FORGET TO APPLY black and other formatting and checks
+RUN ON AWS LINUX MACHINE
+
 There are 74003 rows; row 0 is column names; 74002 rows of census data
 
 CREATE VIRTUALENV WITH JUST PYTHON3.7.3
