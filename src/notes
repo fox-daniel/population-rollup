@@ -33,9 +33,7 @@ total population in 2010 and
 average population percent change for census tracts in this Core Based Statistical Area
 
 1. select relevant columns
-2. count CBSA
-3. count census tracts not in a CBSA
-3. groupby CBSA and: 
+2. groupby CBSA -- Must deal with tracts not in CBSA 
 	count number of census tracts
 	sum pop from 2000
 	sum pop from 2010
