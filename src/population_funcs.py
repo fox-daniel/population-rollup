@@ -83,22 +83,26 @@ def groupby_cbsa(path_to_csv, select_cols, cols, cols_inds, num_rows = 1000):
 	pop00_count = defaultdict(int)
 	pop10_count = defaultdict(int)
 	ppchg_avg = defaultdict(int)
+	error_rows = []
 	with open(path_to_csv, newline = '') as csvfile:
 		censusreader = csv.reader(csvfile, delimiter = ',')
 		row = next(censusreader)
 		i = 0 
 		for row in censusreader:
-			cbsa_title[row[cols_inds['CBSA09']]] = row[cols_inds['CBSA_T']]
-			tract_count[row[cols_inds['CBSA09']]] += 1
-			pop00_count[row[cols_inds['CBSA09']]] += int(row[cols_inds['POP00']])
-			pop10_count[row[cols_inds['CBSA09']]] += int(row[cols_inds['POP10']])
-			ppchg_avg[row[cols_inds['CBSA09']]] += float(row[cols_inds['PPCHG']])
+			try:
+				cbsa_title[row[cols_inds['CBSA09']]] = row[cols_inds['CBSA_T']]
+				tract_count[row[cols_inds['CBSA09']]] += 1
+				pop00_count[row[cols_inds['CBSA09']]] += int(row[cols_inds['POP00']])
+				pop10_count[row[cols_inds['CBSA09']]] += int(row[cols_inds['POP10']])
+				ppchg_avg[row[cols_inds['CBSA09']]] += float(row[cols_inds['PPCHG']])
+			except:
+				error_rows.append(i)
 			i += 1
 			if i >= num_rows:
 				break
 		for k, v in ppchg_avg.items():
 			ppchg_avg[k] = round(ppchg_avg[k]/tract_count[k],2)
-	return cbsa_title, dict(tract_count), dict(pop00_count), dict(pop10_count), dict(ppchg_avg) 
+	return cbsa_title, dict(tract_count), dict(pop00_count), dict(pop10_count), dict(ppchg_avg), error_rows
 
 def write_report(path_to_report, cols, cols_inds, cbsa_title, tract_count, pop00_count, pop10_count, ppchg_avg):
 	with open(path_to_report, 'w', newline = '') as csvfile:

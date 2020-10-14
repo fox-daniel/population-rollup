@@ -1,14 +1,16 @@
 stringdict = {}
 
+alist = ['23','45','x','t5','af','5']
+blist = []
+elist = []
+for i, thing in enumerate(alist):
+	try:
+		blist.append(float(thing))
+	except:
+		elist.append(i)
 
-alist = [1,2,3,4,1,3]
-blist = ['name_1', 'name_2', 'name_3', 'name_4', 'name_1', 'name_3']
-
-for i in range(len(alist)):
-	stringdict[alist[i]] = blist[i]
-
-print(stringdict) 
-
-
+print(alist)
+print(blist)
+print(elist)
 
 
