@@ -34,6 +34,29 @@ def print_select_columns(select_cols, cols, cols_inds, num_rows = 5):
 			if i > num_rows:
 				break
 
+def print_select_cols_and_rows(select_cols, cols, cols_inds, rowstart = 1, rowend = 10):
+	"""Prints a subset of the columns and rows.
+	Input: 
+	select_cols: list of column names
+	cols: dictionary: {index:column_name}
+	cols_inds: dictionary: {column_name:index}
+	num_rows: number of rows returned, not counting the initial row of column names"""
+	with open('../input/censustract-00-10.csv', newline = '') as csvfile:
+		censusreader = csv.reader(csvfile, delimiter = ',')
+		i = 1
+		row = next(censusreader)
+		for i in range(rowstart-1):
+			next(censusreader)
+			i += 1
+		for row in censusreader:
+			new_row = []
+			for col in select_cols:
+				new_row.append(row[cols_inds[col]])
+			print(new_row)
+			i += 1
+			if i > rowend:
+				break
+
 def count_rows():
 	with open('../input/censustract-00-10.csv', newline = '') as csvfile:
 		censusreader = csv.reader(csvfile, delimiter = ',')
@@ -54,7 +77,7 @@ def write_col_keys(cols):
 			column_key_writer.writerow([i,col])
 
 
-def groupby_cbsa(path_to_csv, select_cols, cols, cols_inds):
+def groupby_cbsa(path_to_csv, select_cols, cols, cols_inds, num_rows = 1000):
 	cbsa_title = {}
 	tract_count = defaultdict(int)
 	pop00_count = defaultdict(int)
@@ -63,12 +86,16 @@ def groupby_cbsa(path_to_csv, select_cols, cols, cols_inds):
 	with open(path_to_csv, newline = '') as csvfile:
 		censusreader = csv.reader(csvfile, delimiter = ',')
 		row = next(censusreader)
+		i = 0 
 		for row in censusreader:
 			cbsa_title[row[cols_inds['CBSA09']]] = row[cols_inds['CBSA_T']]
 			tract_count[row[cols_inds['CBSA09']]] += 1
 			pop00_count[row[cols_inds['CBSA09']]] += int(row[cols_inds['POP00']])
 			pop10_count[row[cols_inds['CBSA09']]] += int(row[cols_inds['POP10']])
 			ppchg_avg[row[cols_inds['CBSA09']]] += float(row[cols_inds['PPCHG']])
+			i += 1
+			if i >= num_rows:
+				break
 		for k, v in ppchg_avg.items():
 			ppchg_avg[k] = round(ppchg_avg[k]/tract_count[k],2)
 	return cbsa_title, dict(tract_count), dict(pop00_count), dict(pop10_count), dict(ppchg_avg) 
@@ -77,5 +104,5 @@ def write_report(path_to_report, cols, cols_inds, cbsa_title, tract_count, pop00
 	with open(path_to_report, 'w', newline = '') as csvfile:
 		csvwriter = csv.writer(csvfile, delimiter = ',')
 		for k in tract_count.keys():
-			print(k, pop00_count[k], pop10_count[k], ppchg_avg[k])
+			# print(k, pop00_count[k], pop10_count[k], ppchg_avg[k])
 			csvwriter.writerow([k, cbsa_title[k], tract_count[k], pop00_count[k], pop10_count[k], ppchg_avg[k]])
