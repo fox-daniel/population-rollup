@@ -24,3 +24,13 @@ print(tract_count.items())
 print(pop00_count.items())
 print(pop10_count.items())
 print(ppchg_avg.items())
+
+path_to_report = 'report.csv'
+def write_report(path_to_report, cols, cols_inds, tract_count, pop00_count, pop10_count, ppchg_avg):
+	with open(path_to_report, 'w', newline = '') as csvfile:
+		csvwriter = csv.writer(csvfile, delimiter = ',')
+		for k in tract_count.keys():
+			print(k, pop00_count[k], pop10_count[k], ppchg_avg[k])
+			csvwriter.writerow([k, tract_count[k], pop00_count[k], pop10_count[k], ppchg_avg[k]])
+
+write_report(path_to_report, cols, cols_inds, tract_count, pop00_count, pop10_count, ppchg_avg)
