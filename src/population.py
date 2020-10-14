@@ -17,16 +17,21 @@ select_cols= ['GEOID', 'CBSA09', 'CBSA_T', 'POP00', 'POP10', 'PPCHG']
 
 # population_funcs.write_col_keys(cols)	
 
-def count_tracts(path_to_csv, select_cols):
+def groupby_cbsa(path_to_csv, select_cols):
 	tract_count = defaultdict(int)
+	pop00_count = defaultdict(int)
+	pop10_count = defaultdict(int)
 	with open(path_to_csv, newline = '') as csvfile:
 		censusreader = csv.reader(csvfile, delimiter = ',')
 		row = next(censusreader)
 		for row in censusreader:
-			tract_count[row[cols_inds['CBSA09']]] +=1	
-	return dict(tract_count)
+			tract_count[row[cols_inds['CBSA09']]] += 1
+			pop00_count[row[cols_inds['CBSA09']]] += int(row[cols_inds['POP00']])
+			pop10_count[row[cols_inds['CBSA09']]] += int(row[cols_inds['POP10']])
+	return dict(tract_count), dict(pop00_count), dict(pop10_count)
 
 path_to_test_1 = '../insight_testsuite/tests/test_1/input/censustract-00-10.csv'
-tract_count = count_tracts(path_to_test_1, select_cols)
+tract_count, pop00_count, pop10_count = groupby_cbsa(path_to_csv, select_cols)
 print(tract_count.items())
-print(tract_count['28540'])
+print(pop00_count.items())
+print(pop10_count.items())
