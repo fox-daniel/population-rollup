@@ -1,5 +1,33 @@
-
+DONT FORGET TO REREAD THE DIRECTIONS
 There are 74003 rows.
 
 
 Write new csv with only the necessary columns?
+
+CSI = 3 if outside of CBSA
+
+
+For this challenge, we want to know for each Core Based Statistical Area, the
+
+total number of census tracts,
+total population in 2000,
+total population in 2010 and
+average population percent change for census tracts in this Core Based Statistical Area
+
+1. select relevant columns
+2. count CBSA
+3. count census tracts not in a CBSA
+3. groupby CBSA and: 
+	count number of census tracts
+	sum pop from 2000
+	sum pop from 2000
+	mean PCH
+
+For every line that exists in the output file, the following fields should be written in this order:
+
+Core Based Statstical Area Code (i.e., CBSA09)
+Core Based Statistical Area Code Title (i.e., CBSA_T)
+total number of census tracts
+total population in the CBSA in 2000
+total population in the CBSA in 2010
+average population percent change for census tracts in this CBSA. Round to two decimal places using standard rounding conventions (i.e., Any percentage between 0.005% and 0.010%, inclusive, should round to 0.01% and anything less than 0.005% should round to 0.00%)
