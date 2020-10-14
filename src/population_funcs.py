@@ -120,3 +120,13 @@ def write_report(path_to_report, cols, cols_inds, cbsa_title, tract_count, pop00
 		for k in tract_count.keys():
 			# print(k, pop00_count[k], pop10_count[k], ppchg_avg[k])
 			csvwriter.writerow([k, cbsa_title[k], tract_count[k], pop00_count[k], pop10_count[k], ppchg_avg[k]])
+
+def write_error_rows(path_to_errors_csv, error_rows):
+	"""Write the row indices of rows with errors.
+	Input: list of row indices with errors
+	Output: csv file with each item of dictionary on its own line.
+	"""
+	with open('row_errors.csv', 'w', newline = '') as csvfile:
+		row_error_writer = csv.writer(csvfile, delimiter = ',')
+		for ind in error_rows:
+			row_error_writer.writerow([ind])

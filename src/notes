@@ -1,3 +1,4 @@
+REMOVE ROW LIMIT IN GROUPBY_CBSA
 DONT FORGET TO REREAD THE DIRECTIONS
 DONT FORGET TO APPLY black and other formatting and checks
 RUN ON AWS LINUX MACHINE
@@ -22,6 +23,8 @@ Tests: separate folder for each test
 	-End-to-end
 	-move all reused functions to a module in src
 	-test rounding
+	-tests for data with problematic or missing values in different columns
+	- what if csv has blank row?
 
 Run.sh
 	use python3.7 command in 

@@ -17,7 +17,7 @@ select_cols= ['GEOID', 'CBSA09', 'CBSA_T', 'POP00', 'POP10', 'PPCHG']
 
 # population_funcs.write_col_keys(cols)	
 
-# population_funcs.print_select_cols_and_rows(select_cols, cols, cols_inds, 40, 50)
+population_funcs.print_select_cols_and_rows(select_cols, cols, cols_inds, 868, 868)
 
 
 path_to_test_1 = '../insight_testsuite/tests/test_1/input/censustract-00-10.csv'
@@ -31,4 +31,11 @@ population_funcs.write_report(path_to_report, cols, cols_inds, cbsa_title, tract
 # print(pop00_count.items())
 # print(pop10_count.items())
 # print(ppchg_avg.items())
-# print(error_rows)
+# print(len(error_rows))
+# print(error_rows[:10])
+
+
+# path_to_errors_csv = './row_errors.csv'
+# population_funcs.write_error_rows(path_to_errors_csv, error_rows)
+
+# [43, 108, 868, 1325, 1460, 1472, 1475, 1476, 1477, 1480]
