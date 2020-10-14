@@ -1,5 +1,6 @@
 import csv
 
+
 def create_column_dict():
 	cols = {}
 	with open('../input/censustract-00-10.csv', newline = '') as csvfile:
@@ -12,24 +13,37 @@ def create_column_dict():
 cols = create_column_dict()
 cols_inds = {v:k for k, v in cols.items()}
 
-print(cols)
-print(cols_inds)
+# print(cols)
+# print(cols_inds)
 
 cols_used = ['GEOID', 'ST10', 'COU10', 'TRACT10', 'POP00', 'HU00', 'POP10', 'HU10', 'PPCHG']
 
-# def print_select_columns():
-# 	with open('../input/censustract-00-10.csv', newline = '') as csvfile:
-# 		censusreader = csv.reader(csvfile, delimiter = ',')
-# 		i = 0
-# 		for row in censusreader:
-# 			for col in cols_used:
-# 				print(row[])
-# 			i += 1
-# 			if i > 5:
-# 				break
-# 	return cols
+def print_select_columns():
+	with open('../input/censustract-00-10.csv', newline = '') as csvfile:
+		censusreader = csv.reader(csvfile, delimiter = ',')
+		i = 0
+		for row in censusreader:
+			new_row = []
+			for col in cols_used:
+				new_row.append(row[cols_inds[col]])
+			print(new_row)
+			i += 1
+			if i > 5:
+				break
 
+# print_select_columns()
 
+def count_rows():
+	with open('../input/censustract-00-10.csv', newline = '') as csvfile:
+		censusreader = csv.reader(csvfile, delimiter = ',')
+		i = 0
+		for row in censusreader:
+			i += 1
+		return i
+
+num_rows = count_rows()
+
+print(num_rows)
 # to use within csv reader
 	# i = 0
 	# for row in censusreader:
@@ -44,4 +58,5 @@ def write_col_keys():
 		column_key_writer = csv.writer(csvfile, delimiter = ',')
 		for i, col in cols.items():
 			column_key_writer.writerow([i,col])
+
 
