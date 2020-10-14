@@ -23,6 +23,7 @@ select_cols = ["GEOID", "CBSA09", "CBSA_T", "POP00", "POP10", "PPCHG"]
 # population_funcs.print_select_cols_and_rows(select_cols, cols, cols_inds, 2, 2)
 
 
+# NOTE: ALL ERRORS SEEM TO COME FROM PPCHG
 (
     cbsa_title,
     tract_count,

@@ -104,9 +104,9 @@ def groupby_cbsa(path_to_csv, path_to_error_log, select_cols, cols, cols_inds, n
             censusreader = csv.reader(csvfile, delimiter=",")
             row = next(censusreader)
             i = 0
-            for row in censusreader:
+            for row in censusreader:                
                 try:
-                    cbsa_title[row[cols_inds["CBSA09"]]] = row[cols_inds["CBSA_T"]]
+                    cbsa_title[row[cols_inds["CBSA09"]]] = row[cols_inds["CBSA_T"]]                    
                     tract_count[row[cols_inds["CBSA09"]]] += 1
                     pop00_count[row[cols_inds["CBSA09"]]] += int(
                         row[cols_inds["POP00"]]
@@ -114,12 +114,22 @@ def groupby_cbsa(path_to_csv, path_to_error_log, select_cols, cols, cols_inds, n
                     pop10_count[row[cols_inds["CBSA09"]]] += int(
                         row[cols_inds["POP10"]]
                     )
-                    ppchg_avg[row[cols_inds["CBSA09"]]] += float(
-                        row[cols_inds["PPCHG"]]
-                    )
+                    if row[cols_inds["PPCHG"]] == '(X)':
+                        ppchg_avg[row[cols_inds["CBSA09"]]] = '(X)'
+                        print('first conditional: ', ppchg_avg[row[cols_inds["CBSA09"]]])
+                    elif isinstance(row[cols_inds["PPCHG"]], str) & (ppchg_avg[row[cols_inds["CBSA09"]]] != '(X)'):
+                        ppchg_avg[row[cols_inds["CBSA09"]]] += float(
+                        row[cols_inds["PPCHG"]].replace(",",""))
+                        print('second conditional: ', ppchg_avg[row[cols_inds["CBSA09"]]])
+                    else:
+                        ppchg_avg[row[cols_inds["CBSA09"]]] += float(
+                            row[cols_inds["PPCHG"]]
+                        )
+                except TypeError as err:
+                    print(err, i, row[0])
                 except ValueError as err:
                     error_rows.append(i)
-                    errorwriter.writerow(['ValueError: {0}'.format(err)]+[row[cols_inds[col]] for col in select_cols])
+                    errorwriter.writerow([row[cols_inds[col]] for col in select_cols])
                 i += 1
                 if i >= num_rows:
                     break

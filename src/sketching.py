@@ -1,9 +1,5 @@
-x = float("-1.34")
-print(x+2)
 
-import re
-
-x = '12,345'.replace(',', '')
+x = "12,345.22".replace(',', '')
 print(x)
 
 # alist = ["23", "45", "x", "t5", "af", "5"]
@@ -18,3 +14,5 @@ print(x)
 # print(alist)
 # print(blist)
 # print(elist)
+
+
