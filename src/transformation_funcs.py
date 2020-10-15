@@ -15,6 +15,15 @@ def create_column_dicts(path_to_csv):
     return cols, cols_inds
 
 
+def select_columns(path_to_input, path_to_ouput, selected_columns):
+    """Write the relevant columns to a new csv file."""
+    with open(path_to_ouput, "w+", newline="") as transfile:
+        transwriter = csv.writer(transfile, delimiter=",")
+        with open(path_to_input, newline="") as inputfile:
+            inputreader = csv.reader(inputfile, delimiter=",")
+            for row in inputreader:
+                transwriter.writerow([row[cols_inds[col]] for col in selected_columns])
+
 def groupby_cbsa(path_to_csv, path_to_error_log, select_cols, cols, cols_inds, num_rows=1000):
     """
     Aggregate population data into CBSA's and return dictionaries with the CBSA09 code as the key.

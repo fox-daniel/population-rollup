@@ -25,3 +25,4 @@ validation_funcs.test_geoid_concat(path_to_raw, path_to_log_validate_0, cols, co
 
 validation_funcs.test_row_length(path_to_raw, path_to_log_validate_0)
 
+transformation_funcs.select_columns(path_to_input, path_to_ouput, selected_columns)
