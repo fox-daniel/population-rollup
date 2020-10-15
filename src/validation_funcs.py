@@ -34,7 +34,10 @@ def count_rows(path_to_csv):
 
 
 def test_row_length(path_to_csv, path_to_log, length = None):
-	
+	"""This validates that the row length stays constant. The default 
+	rowlength is that of the first row. It can also be specified as 
+	an argument.
+	"""
 	with open(path_to_csv, newline = '') as csvfile:
 		censusreader = csv.reader(csvfile, delimiter = ',')
 		with open(path_to_log, mode = "a", newline = "") as logfile:
