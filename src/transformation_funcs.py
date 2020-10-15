@@ -15,7 +15,7 @@ def create_column_dicts(path_to_csv):
     return cols, cols_inds
 
 
-def select_columns(path_to_input, path_to_ouput, selected_columns):
+def select_columns(path_to_input, path_to_ouput, selected_columns, cols, cols_inds):
     """Write the relevant columns to a new csv file."""
     with open(path_to_ouput, "w+", newline="") as transfile:
         transwriter = csv.writer(transfile, delimiter=",")
