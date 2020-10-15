@@ -24,3 +24,4 @@ select_cols = ["GEOID", "CBSA09", "CBSA_T", "POP00", "POP10", "PPCHG"]
 validation_funcs.test_geoid_concat(path_to_raw, path_to_log_validate_0, cols, cols_inds)
 
 validation_funcs.test_row_length(path_to_raw, path_to_log_validate_0)
+
