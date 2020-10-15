@@ -116,25 +116,25 @@ def groupby_cbsa(path_to_csv, path_to_error_log, select_cols, cols, cols_inds, n
                     )
                     if row[cols_inds["PPCHG"]] == '(X)':
                         ppchg_avg[row[cols_inds["CBSA09"]]] = '(X)'
-                        print('first conditional: ', ppchg_avg[row[cols_inds["CBSA09"]]])
+                        # print('first conditional: ', ppchg_avg[row[cols_inds["CBSA09"]]])
+                        # errorwriter.writerow(['ppchg is (X)']+[row[cols_inds[col]] for col in select_cols])
                     elif isinstance(row[cols_inds["PPCHG"]], str) & (ppchg_avg[row[cols_inds["CBSA09"]]] != '(X)'):
                         ppchg_avg[row[cols_inds["CBSA09"]]] += float(
                         row[cols_inds["PPCHG"]].replace(",",""))
-                        print('second conditional: ', ppchg_avg[row[cols_inds["CBSA09"]]])
-                    else:
+                    elif isinstance(row[cols_inds["PPCHG"]], float) or isinstance(row[cols_inds["PPCHG"]], int):
                         ppchg_avg[row[cols_inds["CBSA09"]]] += float(
                             row[cols_inds["PPCHG"]]
                         )
                 except TypeError as err:
-                    print(err, i, row[0])
+                    errorwriter.writerow(['TypeError: ']+[row[cols_inds[col]] for col in select_cols])
                 except ValueError as err:
-                    error_rows.append(i)
-                    errorwriter.writerow([row[cols_inds[col]] for col in select_cols])
+                    errorwriter.writerow(['ValueError: ']+[row[cols_inds[col]] for col in select_cols])
                 i += 1
                 if i >= num_rows:
                     break
     for k, v in ppchg_avg.items():
-        ppchg_avg[k] = round(ppchg_avg[k] / tract_count[k], 2)
+        if ppchg_avg[k] != '(X)':
+            ppchg_avg[k] = round(ppchg_avg[k] / tract_count[k], 2)
     return cbsa_title, tract_count, pop00_count, pop10_count, ppchg_avg, error_rows
 
 
