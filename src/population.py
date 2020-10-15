@@ -20,32 +20,33 @@ select_cols = ["GEOID", "CBSA09", "CBSA_T", "POP00", "POP10", "PPCHG"]
 
 # population_funcs.write_col_keys(cols)
 
-# population_funcs.print_select_cols_and_rows(select_cols, cols, cols_inds, 2, 2)
+# population_funcs.print_select_cols_and_rows(select_cols, cols, cols_inds, 40, 50)
+
+population_funcs.print_select_cols_from_rows_with_X(select_cols, cols, cols_inds)
 
 
-# NOTE: ALL ERRORS SEEM TO COME FROM PPCHG
-(
-    cbsa_title,
-    tract_count,
-    pop00_count,
-    pop10_count,
-    ppchg_avg,
-    error_rows,
-) = population_funcs.groupby_cbsa(
-    path_to_csv, path_to_error_log, select_cols, cols, cols_inds, num_rows=75000
-)
+# (
+#     cbsa_title,
+#     tract_count,
+#     pop00_count,
+#     pop10_count,
+#     ppchg_avg,
+#     error_rows,
+# ) = population_funcs.groupby_cbsa(
+#     path_to_csv, path_to_error_log, select_cols, cols, cols_inds, num_rows=75000
+# )
 
 
-population_funcs.write_report(
-    path_to_report,
-    cols,
-    cols_inds,
-    cbsa_title,
-    tract_count,
-    pop00_count,
-    pop10_count,
-    ppchg_avg,
-)
+# population_funcs.write_report(
+#     path_to_report,
+#     cols,
+#     cols_inds,
+#     cbsa_title,
+#     tract_count,
+#     pop00_count,
+#     pop10_count,
+#     ppchg_avg,
+# )
 
 # print(cbsa_title.items())
 # print(tract_count.items())

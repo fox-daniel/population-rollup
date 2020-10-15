@@ -60,6 +60,35 @@ def print_select_cols_and_rows(select_cols, cols, cols_inds, rowstart=1, rowend=
             if i > rowend:
                 break
 
+def print_select_cols_from_rows_with_X(select_cols, cols, cols_inds):
+    """
+    Prints a subset of the columns from rows with (X) in ppchg.
+    Input:
+    select_cols - list of column names
+    cols - dictionary: {index:column_name}
+    cols_inds - dictionary: {column_name:index}
+    """
+    with open("../input/censustract-00-10.csv", newline="") as csvfile:
+        censusreader = csv.reader(csvfile, delimiter=",")
+        with open("./logfile_X.csv", "w+", newline="") as logfile:
+            logwriter = csv.writer(logfile, delimiter=",")
+            i = 1
+            row = next(censusreader)
+            new_row = []
+            for col in select_cols:
+                new_row.append(row[cols_inds[col]])
+            logwriter.writerow(new_row)
+            for row in censusreader:
+                if row[cols_inds["PPCHG"]] == '(X)':
+                    new_row = []
+                    for col in select_cols:
+                        new_row.append(row[cols_inds[col]])
+                    if row[cols_inds['POP00']] != '0':
+                        new_row.append('WARNING')
+                    # print(new_row)
+                    logwriter.writerow(new_row)
+                i += 1
+
 
 def count_rows():
     with open("../input/censustract-00-10.csv", newline="") as csvfile:
