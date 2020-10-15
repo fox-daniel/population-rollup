@@ -51,3 +51,10 @@ total number of census tracts
 total population in the CBSA in 2000
 total population in the CBSA in 2010
 average population percent change for census tracts in this CBSA. Round to two decimal places using standard rounding conventions (i.e., Any percentage between 0.005% and 0.010%, inclusive, should round to 0.01% and anything less than 0.005% should round to 0.00%)
+
+
+
+Add to README
+
+PPCH = '(X)'
+When PP00 is 0 the PPCH is reported as infinite using the symbol '(X)'. This is done even if PP10 is also 0 even though in that case one could argue to report the PPCH as 0. When a CBSA contains a census tract for which PPCH is reported as '(X)', then the average PPCH over the CBSA is reported as '(X)' under the convention that infinity plus a finite number (or infinity) is infinity. Other reporting options might prove more useful. For example, the census tracts with PPCH = '(X)' could be dropped from the computation of the average. Another possibility would be to set PPCH = 0 if PP00 = PP10 = 0; this would apply to some CBSAs but still require a choice to be made when PP00 = 0 and PP10 > 0.
