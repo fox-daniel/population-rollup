@@ -125,7 +125,7 @@ def groupby_cbsa(path_to_csv, path_to_error_log, select_cols, cols, cols_inds, n
     tract_count = defaultdict(int)
     pop00_count = defaultdict(int)
     pop10_count = defaultdict(int)
-    ppchg_avg = defaultdict(int)
+    ppchg_avg = defaultdict(float)
     error_rows = []
     with open(path_to_error_log, "w+", newline="") as errorfile:
         errorwriter = csv.writer(errorfile, delimiter=",")
