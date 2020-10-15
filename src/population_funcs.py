@@ -133,25 +133,34 @@ def groupby_cbsa(path_to_csv, path_to_error_log, select_cols, cols, cols_inds, n
             censusreader = csv.reader(csvfile, delimiter=",")
             row = next(censusreader)
             i = 0
-            for row in censusreader:                
+            for row in censusreader:   
+                if row[cols_inds["CBSA09"]] == "":
+                    cbsa = 'None'+row[cols_inds["GEOID"]]
+                else:
+                    cbsa = row[cols_inds["CBSA09"]]
+                if row[cols_inds["CBSA_T"]] == "":
+                    cbsat = 'None'
+                else:
+                    cbsat = row[cols_inds["CBSA_T"]]
                 try:
-                    cbsa_title[row[cols_inds["CBSA09"]]] = row[cols_inds["CBSA_T"]]                    
-                    tract_count[row[cols_inds["CBSA09"]]] += 1
-                    pop00_count[row[cols_inds["CBSA09"]]] += int(
+                    cbsa_title[cbsa] = cbsat                    
+                    
+                    tract_count[cbsa] += 1
+                    pop00_count[cbsa] += int(
                         row[cols_inds["POP00"]]
                     )
-                    pop10_count[row[cols_inds["CBSA09"]]] += int(
+                    pop10_count[cbsa] += int(
                         row[cols_inds["POP10"]]
                     )
                     if row[cols_inds["PPCHG"]] == '(X)':
-                        ppchg_avg[row[cols_inds["CBSA09"]]] = '(X)'
-                        # print('first conditional: ', ppchg_avg[row[cols_inds["CBSA09"]]])
+                        ppchg_avg[cbsa] = '(X)'
+                        # print('first conditional: ', ppchg_avg[cbsa])
                         # errorwriter.writerow(['ppchg is (X)']+[row[cols_inds[col]] for col in select_cols])
-                    elif isinstance(row[cols_inds["PPCHG"]], str) & (ppchg_avg[row[cols_inds["CBSA09"]]] != '(X)'):
-                        ppchg_avg[row[cols_inds["CBSA09"]]] += float(
+                    elif isinstance(row[cols_inds["PPCHG"]], str) & (ppchg_avg[cbsa] != '(X)'):
+                        ppchg_avg[cbsa] += float(
                         row[cols_inds["PPCHG"]].replace(",",""))
                     elif isinstance(row[cols_inds["PPCHG"]], float) or isinstance(row[cols_inds["PPCHG"]], int):
-                        ppchg_avg[row[cols_inds["CBSA09"]]] += float(
+                        ppchg_avg[cbsa] += float(
                             row[cols_inds["PPCHG"]]
                         )
                 except TypeError as err:
@@ -179,7 +188,7 @@ def write_report(
 ):
     with open(path_to_report, "w", newline="") as csvfile:
         csvwriter = csv.writer(csvfile, delimiter=",")
-        for k in tract_count.keys():
+        for k in sorted(tract_count.keys()):
             # print(k, pop00_count[k], pop10_count[k], ppchg_avg[k])
             csvwriter.writerow(
                 [

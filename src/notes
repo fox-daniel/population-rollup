@@ -7,7 +7,7 @@ There are 74003 rows; row 0 is column names; 74002 rows of census data
 
 CREATE VIRTUALENV WITH JUST PYTHON3.7.3
 
-
+Switch dictionary access to .get method and report to error log
 
 CSI = 3 if outside of CBSA
 
