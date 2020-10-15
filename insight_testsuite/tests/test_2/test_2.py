@@ -1,35 +1,30 @@
 import csv
 import sys
 sys.path.append("./../../../src/")
-import pipeline_funcs
+import importlib
+import development_funcs
+import validation_funcs
+import transformation_funcs
+
+importlib.reload(validation_funcs)
+importlib.reload(transformation_funcs)
+importlib.reload(development_funcs)
+
+path_to_raw = "./input/test_2_input.csv"
+path_to_log_test_2 = "./log_test_2.csv"
+path_to_report = "./output/report.csv"
 
 
 def main():
 	"""Test that the GEOID is the concatenation of its components."""
-	
+	# dictionaries {column_index, column_name} & {column_name, column_index}
+	cols, cols_inds = transformation_funcs.create_column_dicts(path_to_raw)
 
-	path_to_csv = './../../../input/censustract-00-10.csv'
-	# dictionaries: {column_index, column_name} and {column_name, column_index}
-	cols, cols_inds = pipeline_funcs.create_column_dicts(path_to_csv)
-
-	test_code_concat(path_to_csv, cols, cols_inds)
+	select_cols = ["GEOID", "CBSA09", "CBSA_T", "POP00", "POP10", "PPCHG"]
 
 
-# def test_code_concat(path_to_csv, cols, cols_inds):
-# 	cols_concat = ['GEOID', 'ST10', 'COU10', 'TRACT10', 'CBSA09', 'CBSA_T', 'POP00']
+	validation_funcs.test_geoid_concat(path_to_raw, path_to_log_test_2, cols, cols_inds)
 
-# 	with open(path_to_csv, newline = '') as csvfile:
-# 		censusreader = csv.reader(csvfile, delimiter = ',')
-# 		i = 0
-# 		# move to the first row with data
-# 		row = next(censusreader)
-# 		for row in censusreader:
-# 			new_row = [row[cols_inds['GEOID']],\
-# 			row[cols_inds['ST10']]+row[cols_inds['COU10']]+row[cols_inds['TRACT10']]]
-# 			if new_row[0] != new_row[1]:
-# 				print(False)
-# 			i += 1
-# 		print('final row checked: ',i)
 
 if __name__ == "__main__":
 	main()
