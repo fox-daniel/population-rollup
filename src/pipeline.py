@@ -40,13 +40,14 @@ transformation.select_columns(
     path_to_raw, path_to_selected_columns, selected_columns, cols, cols_inds
 )
 
-# transform 2
 # new dictionaries for selected columns {column_index, column_name} & {column_name, column_index}
 cols, cols_inds = transformation.create_column_dicts(path_to_selected_columns)
 
 transformation.clean_types(
     path_to_selected_columns, path_to_cleaned_types, cols, cols_inds, col_types
 )
+
+# transform 2
 (
     cbsa_title,
     tract_count,

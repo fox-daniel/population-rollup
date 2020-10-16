@@ -1,10 +1,6 @@
 import csv
 from collections import defaultdict
 
-# with open(path_to_input, "r+", newline="") as csvfile:
-#         csvwriter = csv.writer(csvfile, delimiter=",")
-#         csvreader = csv.reader(csvfile, delimiter=",")
-
 
 def create_column_dicts(path_to_input):
     """Creates dictionaries: {column_index, column_name} and
