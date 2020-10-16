@@ -66,17 +66,17 @@ def clean_types(path_to_input, path_to_ouput, cols, cols_inds, col_types):
     def clean_type(astring, atype):
         """Cleans a string so that it is ready to be read as the appropriate type."""
         
-        if atype = 'int':
+        if atype == 'int':
             """removes commas and quotes"""
             astring = astring.replace(",","").replace('"','')
             return astring
 
-        if atype = 'float':
+        if atype == 'float':
             """removes commas and quotes"""
             astring = astring.replace(",","").replace('"','')
             return astring 
 
-        if atype = 'str':
+        if atype == 'str':
             return astring   
         
     with open(path_to_input, newline="") as inputfile:
