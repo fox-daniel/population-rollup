@@ -1,2 +1,2 @@
 #!/bin/bash
-python3 ./src/pipeline_0.py
+python3.7 ./src/pipeline.py
