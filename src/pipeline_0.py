@@ -11,9 +11,9 @@ importlib.reload(development_funcs)
 # file paths
 path_to_raw = "../input/censustract-00-10.csv"
 
-path_to_log_validate_0 = "./log_validate_0.csv"
-path_to_log_validate_1 = "./log_validate_1.csv"
-path_to_log_validate_2 = "./log_validate_2.csv"
+path_to_log_validate_0 = "./logs/log_validate_0.csv"
+path_to_log_validate_1 = "./logs/log_validate_1.csv"
+path_to_log_validate_2 = "./logs/log_validate_2.csv"
 
 path_to_filled = "./transformed_data/filled.csv"
 path_to_log_filled = "./logs/log_filled.csv"
