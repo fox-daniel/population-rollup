@@ -1,8 +1,7 @@
-import csv
+def int_clean(astring):
+    """removes commas and quotes"""
+    astring = astring.replace(",","").replace('"','')
+    return astring
 
-with open("sketching.csv", "r+", newline="") as rpfile:
-	reader = csv.reader(rpfile, delimiter=",")
-	writer = csv.writer(rpfile, delimiter=",")
-	for row in reader:
-		new_row = [ r*2 for r in row]
-		writer.writerow(new_row)
+new = int_clean('"1,2345"')
+print(new)
