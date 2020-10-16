@@ -1,5 +1,6 @@
 import csv
 
+
 def print_select_columns(select_cols, cols, cols_inds, num_rows=5):
     """Prints a subset of the columns and rows.
     Input:
@@ -18,6 +19,7 @@ def print_select_columns(select_cols, cols, cols_inds, num_rows=5):
             i += 1
             if i > num_rows:
                 break
+
 
 def print_select_cols_and_rows(select_cols, cols, cols_inds, rowstart=1, rowend=10):
     """REVISE THIS -- THE INDEXING IS BAD
@@ -43,6 +45,7 @@ def print_select_cols_and_rows(select_cols, cols, cols_inds, rowstart=1, rowend=
             if i > rowend:
                 break
 
+
 def print_select_cols_from_rows_with_X(select_cols, cols, cols_inds):
     """
     Prints a subset of the columns from rows with (X) in ppchg.
@@ -62,15 +65,16 @@ def print_select_cols_from_rows_with_X(select_cols, cols, cols_inds):
                 new_row.append(row[cols_inds[col]])
             logwriter.writerow(new_row)
             for row in censusreader:
-                if row[cols_inds["PPCHG"]] == '(X)':
+                if row[cols_inds["PPCHG"]] == "(X)":
                     new_row = []
                     for col in select_cols:
                         new_row.append(row[cols_inds[col]])
-                    if row[cols_inds['POP00']] != '0':
-                        new_row.append('WARNING')
+                    if row[cols_inds["POP00"]] != "0":
+                        new_row.append("WARNING")
                     # print(new_row)
                     logwriter.writerow(new_row)
                 i += 1
+
 
 def write_col_keys(cols):
     """Write the columns keys and their indices to file.
@@ -82,6 +86,7 @@ def write_col_keys(cols):
         for i, col in cols.items():
             column_key_writer.writerow([i, col])
 
+
 def write_error_rows(path_to_errors_csv, error_rows):
     """Write the row indices of rows with errors.
     Input: list of row indices with errors
@@ -91,4 +96,3 @@ def write_error_rows(path_to_errors_csv, error_rows):
         row_error_writer = csv.writer(csvfile, delimiter=",")
         for ind in error_rows:
             row_error_writer.writerow([ind])
-

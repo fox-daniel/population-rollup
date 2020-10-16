@@ -10,7 +10,7 @@ def create_column_dicts(path_to_input):
     """Creates dictionaries: {column_index, column_name} and
     {column_name, column_index}"""
     cols = {}
-    with open(path_to_csv, newline="") as csvfile:
+    with open(path_to_input, newline="") as csvfile:
         inputreader = csv.reader(csvfile, delimiter=",")
         row = next(inputreader)
         for i, col in enumerate(row):
@@ -19,26 +19,27 @@ def create_column_dicts(path_to_input):
     cols_inds = {v: k for k, v in cols.items()}
     return cols, cols_inds
 
+
 def fill_missing_cbsa(path_to_input, path_to_output, path_to_log, cols_inds):
     """This fills missing cbsa codes and titles with GEOID and 'None'."""
     with open(path_to_input, "r", newline="") as rawfile:
         inputreader = csv.reader(rawfile, delimiter=",")
-        with open(path_to_output, 'w+', newline="") as transfile:
+        with open(path_to_output, "w+", newline="") as transfile:
             transwriter = csv.writer(transfile, delimiter=",")
-            with open(path_to_log, 'a', newline="") as logfile:
+            with open(path_to_log, "a", newline="") as logfile:
                 logwriter = csv.writer(logfile, delimiter=",")
                 logwriter.writerow(["Errors from filling missing CBSA09 field."])
                 errors = False
                 row = next(inputreader)
                 transwriter.writerow(row)
-                for row in inputreader:   
+                for row in inputreader:
                     row_error = False
                     new_row = row.copy()
-                    if row[cols_inds["CBSA09"]] in [""," "]:
-                        new_row[cols_inds["CBSA09"]] = 'n'+row[cols_inds["GEOID"]]
+                    if row[cols_inds["CBSA09"]] in ["", " "]:
+                        new_row[cols_inds["CBSA09"]] = "n" + row[cols_inds["GEOID"]]
                         row_error = True
-                    if row[cols_inds["CBSA_T"]] in [""," "]:
-                        new_row[cols_inds["CBSA_T"]] = 'MISSING'
+                    if row[cols_inds["CBSA_T"]] in ["", " "]:
+                        new_row[cols_inds["CBSA_T"]] = "MISSING"
                         row_error = True
                     if row_error == True:
                         errors = True
@@ -57,28 +58,29 @@ def select_columns(path_to_input, path_to_ouput, selected_columns, cols, cols_in
             for row in inputreader:
                 transwriter.writerow([row[cols_inds[col]] for col in selected_columns])
 
+
 def clean_types(path_to_input, path_to_ouput, cols, cols_inds, col_types):
-    """Clean types by formatting for appropriate type. Currently it 
+    """Clean types by formatting for appropriate type. Currently it
     removes quotes and commas from floats and ints.
     Column Types: int, int, str, int, int, float
     """
 
     def clean_type(astring, atype):
         """Cleans a string so that it is ready to be read as the appropriate type."""
-        
-        if atype == 'int':
+
+        if atype == "int":
             """removes commas and quotes"""
-            astring = astring.replace(",","").replace('"','')
+            astring = astring.replace(",", "").replace('"', "")
             return astring
 
-        if atype == 'float':
+        if atype == "float":
             """removes commas and quotes"""
-            astring = astring.replace(",","").replace('"','')
-            return astring 
+            astring = astring.replace(",", "").replace('"', "")
+            return astring
 
-        if atype == 'str':
-            return astring   
-        
+        if atype == "str":
+            return astring
+
     with open(path_to_input, newline="") as inputfile:
         inputreader = csv.reader(inputfile, delimiter=",")
         with open(path_to_ouput, "w+", newline="") as transfile:
@@ -114,32 +116,31 @@ def groupby_cbsa(path_to_input, path_to_log, select_cols, cols, cols_inds):
             inputreader = csv.reader(csvfile, delimiter=",")
             row = next(inputreader)
             i = 0
-            for row in inputreader:   
+            for row in inputreader:
                 try:
                     cbsa = row[cols_inds["CBSA09"]]
-                    cbsa_title[cbsa] = row[cols_inds["CBSA_T"]]                   
+                    cbsa_title[cbsa] = row[cols_inds["CBSA_T"]]
                     tract_count[cbsa] += 1
-                    pop00_count[cbsa] += int(
-                        row[cols_inds["POP00"]]
-                    )
-                    pop10_count[cbsa] += int(
-                        row[cols_inds["POP10"]]
-                    )
-                    if row[cols_inds["PPCHG"]] == '(X)':
-                        ppchg_avg[cbsa] = '(X)'
+                    pop00_count[cbsa] += int(row[cols_inds["POP00"]])
+                    pop10_count[cbsa] += int(row[cols_inds["POP10"]])
+                    if row[cols_inds["PPCHG"]] == "(X)":
+                        ppchg_avg[cbsa] = "(X)"
                     else:
-                        ppchg_avg[cbsa] += float(
-                            row[cols_inds["PPCHG"]]
-                        )
+                        ppchg_avg[cbsa] += float(row[cols_inds["PPCHG"]])
                 except TypeError as err:
-                    errorwriter.writerow(['TypeError: ']+[row[cols_inds[col]] for col in select_cols])
+                    errorwriter.writerow(
+                        ["TypeError: "] + [row[cols_inds[col]] for col in select_cols]
+                    )
                 except ValueError as err:
-                    errorwriter.writerow(['ValueError: ']+[row[cols_inds[col]] for col in select_cols])
+                    errorwriter.writerow(
+                        ["ValueError: "] + [row[cols_inds[col]] for col in select_cols]
+                    )
                 i += 1
     for k, v in ppchg_avg.items():
-        if ppchg_avg[k] != '(X)':
+        if ppchg_avg[k] != "(X)":
             ppchg_avg[k] = round(ppchg_avg[k] / tract_count[k], 2)
     return cbsa_title, tract_count, pop00_count, pop10_count, ppchg_avg, error_rows
+
 
 def write_report(
     path_to_output,
