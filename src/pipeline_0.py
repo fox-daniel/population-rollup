@@ -20,6 +20,7 @@ path_to_log_filled = "./logs/log_filled.csv"
 path_to_selected_columns = "./transformed_data/selected_columns.csv"
 path_to_cleaned_types = "./transformed_data/cleaned_types.csv"
 path_to_log_groupby = "./logs/log_groupby.csv"
+
 path_to_test_1 = "../insight_testsuite/tests/test_1/input/censustract-00-10.csv"
 
 path_to_report = "../output/report.csv"
@@ -42,7 +43,7 @@ transformation_funcs.select_columns(
     path_to_filled, path_to_selected_columns, selected_columns, cols, cols_inds
 )
 
-# dictionaries {column_index, column_name} & {column_name, column_index}
+# new dictionaries for selected columns {column_index, column_name} & {column_name, column_index}
 cols, cols_inds = transformation_funcs.create_column_dicts(path_to_selected_columns)
 
 
@@ -70,10 +71,3 @@ transformation_funcs.write_report(
     pop10_count,
     ppchg_avg,
 )
-
-# print(cbsa_title['46900'])
-# print(tract_count['46900'])
-# print(pop00_count['46900'])
-# print(pop10_count['46900'])
-# print(ppchg_avg['46900'])
-
