@@ -18,6 +18,7 @@ path_to_log_validate_2 = "./log_validate_2.csv"
 path_to_filled = "./transformed_data/filled.csv"
 path_to_log_filled = "./logs/log_filled.csv"
 path_to_selected_columns = "./transformed_data/selected_columns.csv"
+path_to_cleaned_types = "./transformed_data/cleaned_types.csv"
 
 path_to_test_1 = "../insight_testsuite/tests/test_1/input/censustract-00-10.csv"
 
@@ -36,4 +37,4 @@ validation_funcs.test_row_length(path_to_raw, path_to_log_validate_0)
 # transform 1
 transformation_funcs.fill_missing_cbsa(path_to_raw, path_to_filled, path_to_log_filled, cols_inds)
 transformation_funcs.select_columns(path_to_filled, path_to_selected_columns, selected_columns, cols, cols_inds)
-transformation_funcs.clean_types(path_to_input, path_to_ouput, cols, cols_inds, col_types)
+transformation_funcs.clean_types(path_to_selected_columns, path_to_cleaned_types, cols, cols_inds, col_types)
