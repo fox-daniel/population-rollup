@@ -1,18 +1,8 @@
+import csv
 
-x = "12,345.22".replace(',', '')
-print(x)
-
-# alist = ["23", "45", "x", "t5", "af", "5"]
-# blist = []
-# elist = []
-# for i, thing in enumerate(alist):
-#     try:
-#         blist.append(float(thing))
-#     except:
-#         elist.append(i)
-
-# print(alist)
-# print(blist)
-# print(elist)
-
-
+with open("sketching.csv", "r+", newline="") as rpfile:
+	reader = csv.reader(rpfile, delimiter=",")
+	writer = csv.writer(rpfile, delimiter=",")
+	for row in reader:
+		new_row = [ r*2 for r in row]
+		writer.writerow(new_row)

@@ -1,6 +1,11 @@
 import csv
 from collections import defaultdict
 
+# with open(path_to_csv, "r+", newline="") as csvfile:
+#         csvwriter = csv.writer(csvfile, delimiter=",")
+#         csvreader = csv.reader(csvfile, delimiter=",")
+
+
 def create_column_dicts(path_to_csv):
     """Creates dictionaries: {column_index, column_name} and
     {column_name, column_index}"""
@@ -14,16 +19,45 @@ def create_column_dicts(path_to_csv):
     cols_inds = {v: k for k, v in cols.items()}
     return cols, cols_inds
 
+def fill_missing_cbsa(path_to_input, path_to_output, path_to_log, cols_inds):
+    """This fills missing cbsa codes and titles with GEOID and 'None'."""
+    with open(path_to_input, "r", newline="") as rawfile:
+        inputreader = csv.reader(rawfile, delimiter=",")
+        with open(path_to_output, 'w+', newline="") as transfile:
+            transwriter = csv.writer(transfile, delimiter=",")
+            with open(path_to_log, 'a', newline="") as logfile:
+                logwriter = csv.writer(logfile, delimiter=",")
+                logwriter.writerow(["Errors from filling missing CBSA09 field."])
+                errors = False
+                row = next(inputreader)
+                transwriter.writerow(row)
+                for row in inputreader:   
+                    row_error = False
+                    new_row = row.copy()
+                    if row[cols_inds["CBSA09"]] in [""," "]:
+                        new_row[cols_inds["CBSA09"]] = 'n'+row[cols_inds["GEOID"]]
+                        row_error = True
+                    if row[cols_inds["CBSA_T"]] in [""," "]:
+                        new_row[cols_inds["CBSA_T"]] = 'MISSING'
+                        row_error = True
+                    if row_error == True:
+                        errors = True
+                        logwriter.writerow(row)
+                    transwriter.writerow(new_row)
+                if errors == False:
+                    logwriter.writerow(["***No missing CBSA09 or CBSA_T fields.***"])
+
 
 def select_columns(path_to_input, path_to_ouput, selected_columns, cols, cols_inds):
     """Write the relevant columns to a new csv file."""
-    with open(path_to_ouput, "w+", newline="") as transfile:
-        transwriter = csv.writer(transfile, delimiter=",")
-        with open(path_to_input, newline="") as inputfile:
-            inputreader = csv.reader(inputfile, delimiter=",")
+    with open(path_to_input, newline="") as inputfile:
+        inputreader = csv.reader(inputfile, delimiter=",")
+        with open(path_to_ouput, "w+", newline="") as transfile:
+            transwriter = csv.writer(transfile, delimiter=",")
             for row in inputreader:
                 transwriter.writerow([row[cols_inds[col]] for col in selected_columns])
 
+# this will be simplified, with much of its functionality moved into separate functions
 def groupby_cbsa(path_to_csv, path_to_error_log, select_cols, cols, cols_inds, num_rows=1000):
     """
     Aggregate population data into CBSA's and return dictionaries with the CBSA09 code as the key.

@@ -7,6 +7,8 @@ There are 74003 rows; row 0 is column names; 74002 rows of census data
 
 CREATE VIRTUALENV WITH JUST PYTHON3.7.3
 
+
+
 Switch dictionary access to .get method and report to error log
 
 CSI = 3 if outside of CBSA
@@ -28,6 +30,7 @@ Tests: separate folder for each test
 
 Run.sh
 	use python3.7 command in 
+	create empty log files for all tests and for main script
 
 For this challenge, we want to know for each Core Based Statistical Area, the
 
