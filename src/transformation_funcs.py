@@ -1,18 +1,18 @@
 import csv
 from collections import defaultdict
 
-# with open(path_to_csv, "r+", newline="") as csvfile:
+# with open(path_to_input, "r+", newline="") as csvfile:
 #         csvwriter = csv.writer(csvfile, delimiter=",")
 #         csvreader = csv.reader(csvfile, delimiter=",")
 
 
-def create_column_dicts(path_to_csv):
+def create_column_dicts(path_to_input):
     """Creates dictionaries: {column_index, column_name} and
     {column_name, column_index}"""
     cols = {}
     with open(path_to_csv, newline="") as csvfile:
-        censusreader = csv.reader(csvfile, delimiter=",")
-        row = next(censusreader)
+        inputreader = csv.reader(csvfile, delimiter=",")
+        row = next(inputreader)
         for i, col in enumerate(row):
             cols[i] = col
     # dictionary {column_name, column_index}
@@ -91,11 +91,11 @@ def clean_types(path_to_input, path_to_ouput, cols, cols_inds, col_types):
 
 
 # this will be simplified, with much of its functionality moved into separate functions
-def groupby_cbsa(path_to_csv, path_to_error_log, select_cols, cols, cols_inds, num_rows=1000):
+def groupby_cbsa(path_to_input, path_to_log, select_cols, cols, cols_inds):
     """
     Aggregate population data into CBSA's and return dictionaries with the CBSA09 code as the key.
     Input:
-    path_to_csv -  the path to csv file with the population data
+    path_to_input -  the path to csv file with the population data
     cols - dictionary: {index:column_name}
     cols_inds - dictionary: {column_name:index}
     num_rows - the maximum number of rows to use as input
@@ -108,24 +108,16 @@ def groupby_cbsa(path_to_csv, path_to_error_log, select_cols, cols, cols_inds, n
     pop10_count = defaultdict(int)
     ppchg_avg = defaultdict(float)
     error_rows = []
-    with open(path_to_error_log, "w+", newline="") as errorfile:
+    with open(path_to_log, "w+", newline="") as errorfile:
         errorwriter = csv.writer(errorfile, delimiter=",")
-        with open(path_to_csv, newline="") as csvfile:
-            censusreader = csv.reader(csvfile, delimiter=",")
-            row = next(censusreader)
+        with open(path_to_input, newline="") as csvfile:
+            inputreader = csv.reader(csvfile, delimiter=",")
+            row = next(inputreader)
             i = 0
-            for row in censusreader:   
-                if row[cols_inds["CBSA09"]] == "":
-                    cbsa = 'None'+row[cols_inds["GEOID"]]
-                else:
-                    cbsa = row[cols_inds["CBSA09"]]
-                if row[cols_inds["CBSA_T"]] == "":
-                    cbsat = 'None'
-                else:
-                    cbsat = row[cols_inds["CBSA_T"]]
+            for row in inputreader:   
                 try:
-                    cbsa_title[cbsa] = cbsat                    
-                    
+                    cbsa = row[cols_inds["CBSA09"]]
+                    cbsa_title[cbsa] = row[cols_inds["CBSA_T"]]                   
                     tract_count[cbsa] += 1
                     pop00_count[cbsa] += int(
                         row[cols_inds["POP00"]]
@@ -135,12 +127,7 @@ def groupby_cbsa(path_to_csv, path_to_error_log, select_cols, cols, cols_inds, n
                     )
                     if row[cols_inds["PPCHG"]] == '(X)':
                         ppchg_avg[cbsa] = '(X)'
-                        # print('first conditional: ', ppchg_avg[cbsa])
-                        # errorwriter.writerow(['ppchg is (X)']+[row[cols_inds[col]] for col in select_cols])
-                    elif isinstance(row[cols_inds["PPCHG"]], str) & (ppchg_avg[cbsa] != '(X)'):
-                        ppchg_avg[cbsa] += float(
-                        row[cols_inds["PPCHG"]].replace(",",""))
-                    elif isinstance(row[cols_inds["PPCHG"]], float) or isinstance(row[cols_inds["PPCHG"]], int):
+                    else:
                         ppchg_avg[cbsa] += float(
                             row[cols_inds["PPCHG"]]
                         )
@@ -149,15 +136,13 @@ def groupby_cbsa(path_to_csv, path_to_error_log, select_cols, cols, cols_inds, n
                 except ValueError as err:
                     errorwriter.writerow(['ValueError: ']+[row[cols_inds[col]] for col in select_cols])
                 i += 1
-                if i >= num_rows:
-                    break
     for k, v in ppchg_avg.items():
         if ppchg_avg[k] != '(X)':
             ppchg_avg[k] = round(ppchg_avg[k] / tract_count[k], 2)
     return cbsa_title, tract_count, pop00_count, pop10_count, ppchg_avg, error_rows
 
 def write_report(
-    path_to_report,
+    path_to_output,
     cols,
     cols_inds,
     cbsa_title,
@@ -166,7 +151,7 @@ def write_report(
     pop10_count,
     ppchg_avg,
 ):
-    with open(path_to_report, "w", newline="") as csvfile:
+    with open(path_to_output, "w", newline="") as csvfile:
         csvwriter = csv.writer(csvfile, delimiter=",")
         for k in sorted(tract_count.keys()):
             # print(k, pop00_count[k], pop10_count[k], ppchg_avg[k])
