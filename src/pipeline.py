@@ -36,16 +36,13 @@ validation.test_geoid_concat(path_to_raw, path_to_log_validate_0, cols, cols_ind
 validation.test_row_length(path_to_raw, path_to_log_validate_0)
 
 # transform 1
-transformation.fill_missing_cbsa(
-    path_to_raw, path_to_filled, path_to_log_filled, cols_inds
-)
 transformation.select_columns(
-    path_to_filled, path_to_selected_columns, selected_columns, cols, cols_inds
+    path_to_raw, path_to_selected_columns, selected_columns, cols, cols_inds
 )
 
+# transform 2
 # new dictionaries for selected columns {column_index, column_name} & {column_name, column_index}
 cols, cols_inds = transformation.create_column_dicts(path_to_selected_columns)
-
 
 transformation.clean_types(
     path_to_selected_columns, path_to_cleaned_types, cols, cols_inds, col_types

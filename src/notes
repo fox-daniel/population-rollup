@@ -9,6 +9,7 @@ CREATE VIRTUALENV WITH JUST PYTHON3.7.3
 
 Change pipeline so that there is only one load of the csv and all transformations are made in memory
 
+In pipeline: create list of paths to files and then use generator to call them and auto insert into functions?
 
 Switch dictionary access to .get method and report to error log
 

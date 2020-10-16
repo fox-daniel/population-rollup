@@ -20,35 +20,6 @@ def create_column_dicts(path_to_input):
     return cols, cols_inds
 
 
-def fill_missing_cbsa(path_to_input, path_to_output, path_to_log, cols_inds):
-    """This fills missing cbsa codes and titles with GEOID and 'None'."""
-    with open(path_to_input, "r", newline="") as rawfile:
-        inputreader = csv.reader(rawfile, delimiter=",")
-        with open(path_to_output, "w+", newline="") as transfile:
-            transwriter = csv.writer(transfile, delimiter=",")
-            with open(path_to_log, "a", newline="") as logfile:
-                logwriter = csv.writer(logfile, delimiter=",")
-                logwriter.writerow(["Errors from filling missing CBSA09 field."])
-                errors = False
-                row = next(inputreader)
-                transwriter.writerow(row)
-                for row in inputreader:
-                    row_error = False
-                    new_row = row.copy()
-                    if row[cols_inds["CBSA09"]] in ["", " "]:
-                        new_row[cols_inds["CBSA09"]] = "n" + row[cols_inds["GEOID"]]
-                        row_error = True
-                    if row[cols_inds["CBSA_T"]] in ["", " "]:
-                        new_row[cols_inds["CBSA_T"]] = "MISSING"
-                        row_error = True
-                    if row_error == True:
-                        errors = True
-                        logwriter.writerow(row)
-                    transwriter.writerow(new_row)
-                if errors == False:
-                    logwriter.writerow(["***No missing CBSA09 or CBSA_T fields.***"])
-
-
 def select_columns(path_to_input, path_to_ouput, selected_columns, cols, cols_inds):
     """Write the relevant columns to a new csv file."""
     with open(path_to_input, newline="") as inputfile:
@@ -119,14 +90,15 @@ def groupby_cbsa(path_to_input, path_to_log, select_cols, cols, cols_inds):
             for row in inputreader:
                 try:
                     cbsa = row[cols_inds["CBSA09"]]
-                    cbsa_title[cbsa] = row[cols_inds["CBSA_T"]]
-                    tract_count[cbsa] += 1
-                    pop00_count[cbsa] += int(row[cols_inds["POP00"]])
-                    pop10_count[cbsa] += int(row[cols_inds["POP10"]])
-                    if row[cols_inds["PPCHG"]] == "(X)":
-                        ppchg_avg[cbsa] = "(X)"
-                    else:
-                        ppchg_avg[cbsa] += float(row[cols_inds["PPCHG"]])
+                    if cbsa != "":
+                        cbsa_title[cbsa] = row[cols_inds["CBSA_T"]]
+                        tract_count[cbsa] += 1
+                        pop00_count[cbsa] += int(row[cols_inds["POP00"]])
+                        pop10_count[cbsa] += int(row[cols_inds["POP10"]])
+                        if row[cols_inds["PPCHG"]] == "(X)":
+                            ppchg_avg[cbsa] = "(X)"
+                        else:
+                            ppchg_avg[cbsa] += float(row[cols_inds["PPCHG"]])
                 except TypeError as err:
                     errorwriter.writerow(
                         ["TypeError: "] + [row[cols_inds[col]] for col in select_cols]
