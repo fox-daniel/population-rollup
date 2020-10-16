@@ -9,21 +9,21 @@ importlib.reload(transformation_funcs)
 importlib.reload(development_funcs)
 
 # file paths
-path_to_raw = "../input/censustract-00-10.csv"
+path_to_raw = "./input/censustract-00-10.csv"
 
-path_to_log_validate_0 = "./logs/log_validate_0.csv"
-path_to_log_validate_1 = "./logs/log_validate_1.csv"
-path_to_log_validate_2 = "./logs/log_validate_2.csv"
+path_to_log_validate_0 = "./src/logs/log_validate_0.csv"
+path_to_log_validate_1 = "./src/logs/log_validate_1.csv"
+path_to_log_validate_2 = "./src/logs/log_validate_2.csv"
 
-path_to_filled = "./transformed_data/filled.csv"
-path_to_log_filled = "./logs/log_filled.csv"
-path_to_selected_columns = "./transformed_data/selected_columns.csv"
-path_to_cleaned_types = "./transformed_data/cleaned_types.csv"
-path_to_log_groupby = "./logs/log_groupby.csv"
+path_to_filled = "./src/transformed_data/filled.csv"
+path_to_log_filled = "./src/logs/log_filled.csv"
+path_to_selected_columns = "./src/transformed_data/selected_columns.csv"
+path_to_cleaned_types = "./src/transformed_data/cleaned_types.csv"
+path_to_log_groupby = "./src/logs/log_groupby.csv"
 
-path_to_test_1 = "../insight_testsuite/tests/test_1/input/censustract-00-10.csv"
+path_to_test_1 = "./insight_testsuite/tests/test_1/input/censustract-00-10.csv"
 
-path_to_report = "../output/report.csv"
+path_to_report = "./output/report.csv"
 
 # dictionaries {column_index, column_name} & {column_name, column_index}
 cols, cols_inds = transformation_funcs.create_column_dicts(path_to_raw)
