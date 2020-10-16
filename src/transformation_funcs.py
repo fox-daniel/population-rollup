@@ -152,7 +152,7 @@ def write_report(
     pop10_count,
     ppchg_avg,
 ):
-    with open(path_to_output, "w", newline="") as csvfile:
+    with open(path_to_output, "w+", newline="") as csvfile:
         csvwriter = csv.writer(csvfile, delimiter=",")
         for k in sorted(tract_count.keys()):
             # print(k, pop00_count[k], pop10_count[k], ppchg_avg[k])

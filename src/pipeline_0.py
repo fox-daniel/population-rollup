@@ -60,6 +60,17 @@ transformation_funcs.clean_types(
     path_to_cleaned_types, path_to_log_groupby, selected_columns, cols, cols_inds
 )
 
+transformation_funcs.write_report(
+    path_to_report,
+    cols,
+    cols_inds,
+    cbsa_title,
+    tract_count,
+    pop00_count,
+    pop10_count,
+    ppchg_avg,
+)
+
 # print(cbsa_title['46900'])
 # print(tract_count['46900'])
 # print(pop00_count['46900'])
