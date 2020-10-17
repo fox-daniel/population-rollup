@@ -1,6 +1,4 @@
 #!/bin/bash
 
-head -n 1 ./input/complaints.csv
-
-python3.7 ./src/pipeline.py ./input/complaints.csv ./output/report.csv
+python3.7 ./src/pipeline.py ./input/censustract-00-10.csv ./output/report.csv
 
