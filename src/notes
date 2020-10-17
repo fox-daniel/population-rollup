@@ -19,9 +19,9 @@ CSI = 3 if outside of CBSA
 CBSA title has "," so enclose title in double quotes
 
 How will my solution scale? 
-	Test on a larger data set, generate it so it can be used for tests
+	
 
-Tests: separate folder for each test
+Tests: separate folder for each test (functional correctness & scaling (memory usage vs time))
 	-to run test, move input & output csv's to top-level input and output directories and run code
 	-use pandas to generate input and output files for tests
 	-Unit
@@ -30,6 +30,9 @@ Tests: separate folder for each test
 	-test rounding
 	-tests for data with problematic or missing values in different columns
 	- what if csv has blank row?
+	-Test on a larger data set, generate it so it can be used for tests
+	-make a graph of time against size of csv - should be no worse than linear
+	-make a graph of time against number of csvs - should be linear
 
 Run.sh
 	use python3.7 command in 
@@ -69,3 +72,7 @@ test_4
 This tests two transformations:
 	1. If the CBSA09 or CBSA_T are missing they are filled with GEOID and "MISSING", respectively.
 	2. The subset of columns needed are selected and the rest are dropped.
+
+This code could be improved to scale better in the following ways.
+	1. If large csv files (> n GB) are expected as input, then...
+	2. If large numbers of csv files (> n files) are expected as input, then...
