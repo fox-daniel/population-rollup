@@ -1,5 +1,6 @@
 import csv
 import importlib
+import argparse
 import development
 import validation
 import transformation
@@ -8,8 +9,14 @@ importlib.reload(validation)
 importlib.reload(transformation)
 importlib.reload(development)
 
+parser=argparse.ArgumentParser("Accept input and output file paths.")
+parser.add_argument("path_to_input_file", help="The input path should be './input/censustract-00-10.csv'.", type=str)
+parser.add_argument("path_to_output_file", help="The output path should be './output/report.csv'.", type=str)
+args = parser.parse_args()
+
 # file paths
-path_to_raw = "./input/censustract-00-10.csv"
+path_to_raw = args.path_to_input_file
+path_to_report = args.path_to_output_file
 
 path_to_log_validate_0 = "./src/logs/log_validate_0.csv"
 path_to_log_validate_1 = "./src/logs/log_validate_1.csv"
@@ -23,7 +30,7 @@ path_to_log_groupby = "./src/logs/log_groupby.csv"
 
 path_to_test_1 = "./insight_testsuite/tests/test_1/input/censustract-00-10.csv"
 
-path_to_report = "./output/report.csv"
+
 
 # dictionaries {column_index, column_name} & {column_name, column_index}
 cols, cols_inds = transformation.create_column_dicts(path_to_raw)
