@@ -7,5 +7,5 @@ ls ./input/
 echo "The src dir has the following:"
 ls ./src/
 
-python3.7 ./src/pipeline.py ./input/censustract-00-10.csv ./output/report.csv
+python3.7 ./src/pipeline.py ./input/complaints.csv ./output/report.csv
 
