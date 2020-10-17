@@ -20,7 +20,7 @@ def select_columns(path_to_input, path_to_ouput, selected_columns, cols, cols_in
     """Write the relevant columns to a new csv file."""
     with open(path_to_input, newline="") as inputfile:
         inputreader = csv.reader(inputfile, delimiter=",")
-        with open(path_to_ouput, "w+", newline="") as transfile:
+        with open(path_to_ouput, "w", newline="") as transfile:
             transwriter = csv.writer(transfile, delimiter=",")
             for row in inputreader:
                 transwriter.writerow([row[cols_inds[col]] for col in selected_columns])
@@ -50,7 +50,7 @@ def clean_types(path_to_input, path_to_ouput, cols, cols_inds, col_types):
 
     with open(path_to_input, newline="") as inputfile:
         inputreader = csv.reader(inputfile, delimiter=",")
-        with open(path_to_ouput, "w+", newline="") as transfile:
+        with open(path_to_ouput, "w", newline="") as transfile:
             transwriter = csv.writer(transfile, delimiter=",")
             row = next(inputreader)
             for row in inputreader:
@@ -77,7 +77,7 @@ def groupby_cbsa(path_to_input, path_to_log, select_cols, cols, cols_inds):
     pop10_count = defaultdict(int)
     ppchg_avg = defaultdict(float)
     error_rows = []
-    with open(path_to_log, "w+", newline="") as errorfile:
+    with open(path_to_log, "a", newline="") as errorfile:
         errorwriter = csv.writer(errorfile, delimiter=",")
         with open(path_to_input, newline="") as csvfile:
             inputreader = csv.reader(csvfile, delimiter=",")
@@ -120,7 +120,7 @@ def write_report(
     pop10_count,
     ppchg_avg,
 ):
-    with open(path_to_output, "w+", newline="") as csvfile:
+    with open(path_to_output, "w", newline="") as csvfile:
         csvwriter = csv.writer(csvfile, delimiter=",")
         for k in sorted(tract_count.keys()):
             # print(k, pop00_count[k], pop10_count[k], ppchg_avg[k])
