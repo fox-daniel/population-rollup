@@ -2,7 +2,7 @@ REMOVE ROW LIMIT IN GROUPBY_CBSA
 DONT FORGET TO REREAD THE DIRECTIONS
 DONT FORGET TO APPLY black and other formatting and checks
 REMOVE RELOAD IMPORTS
-RUN ON AWS LINUX MACHINE
+RUN ON AWS LINUX MACHINE by cloning git repo, not from files on my machine
 
 There are 74003 rows; row 0 is column names; 74002 rows of census data
 
