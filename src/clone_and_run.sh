@@ -2,9 +2,12 @@
 
 git clone https://github.com/fox-daniel/population-rollup pop_roll_test
 
-
-echo "****The pwd is ${PWD}.****"
 cd ./pop_roll_test
-echo "****After cd to repo, the pwd is ${PWD}.****"
-echo "Next, execute: ./run.sh"
+
+# Test_1
+cp ./insight_testsuite/tests/test_1/input/censustract-00-10.csv ./input/
+
 ./run.sh
+
+# rm ./input/censustract-00-10.csv
+cat ./output/report.csv
