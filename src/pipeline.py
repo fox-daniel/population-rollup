@@ -43,8 +43,8 @@ selected_columns = ["GEOID", "CBSA09", "CBSA_T", "POP00", "POP10", "PPCHG"]
 col_types = ["int", "int", "str", "int", "int", "float"]
 
 # validation 0
-validation.test_geoid_concat(path_to_raw, path_to_log_validate_0, cols, cols_inds)
-validation.test_row_length(path_to_raw, path_to_log_validate_0)
+# validation.test_geoid_concat(path_to_raw, path_to_log_validate_0, cols, cols_inds)
+# validation.test_row_length(path_to_raw, path_to_log_validate_0)
 
 # transform 1
 transformation.select_columns(
