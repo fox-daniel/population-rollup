@@ -53,6 +53,7 @@ def clean_types(path_to_input, path_to_ouput, cols, cols_inds, col_types):
         with open(path_to_ouput, "w", newline="") as transfile:
             transwriter = csv.writer(transfile, delimiter=",")
             row = next(inputreader)
+            transwriter.writerow(row)
             for row in inputreader:
                 for i, atype in enumerate(col_types):
                     row[i] = clean_type(row[i], atype)
