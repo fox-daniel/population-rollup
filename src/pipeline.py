@@ -1,5 +1,6 @@
 import csv
 import importlib
+import os
 import argparse
 import development
 import validation
@@ -13,6 +14,8 @@ parser=argparse.ArgumentParser("Accept input and output file paths.")
 parser.add_argument("path_to_input_file", help="The input path should be './input/censustract-00-10.csv'.", type=str)
 parser.add_argument("path_to_output_file", help="The output path should be './output/report.csv'.", type=str)
 args = parser.parse_args()
+
+print(os.system("pwd"))
 
 # file paths
 path_to_raw = args.path_to_input_file
