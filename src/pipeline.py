@@ -15,6 +15,7 @@ parser.add_argument("path_to_input_file", help="The input path should be './inpu
 parser.add_argument("path_to_output_file", help="The output path should be './output/report.csv'.", type=str)
 args = parser.parse_args()
 
+print("From within pipeline.py, os.system("pwd"):")
 print(os.system("pwd"))
 
 # file paths
