@@ -3,17 +3,16 @@ import sys
 
 sys.path.append("./../../../src/")
 import importlib
-import development
 import validation
 import transformation
 
 importlib.reload(validation)
 importlib.reload(transformation)
-importlib.reload(development)
 
-path_to_raw = "./input/test_3_input.csv"
-path_to_log = "./log_test_3.csv"
-path_to_report = "./output/report.csv"
+path_to_raw = "./input/test_input.csv"
+path_to_log = "./test_log.csv"
+path_to_report = "./output/test_report.csv"
+
 
 
 def main():

@@ -3,26 +3,20 @@ import sys
 
 sys.path.append("./../../../src/")
 import importlib
-import development
 import validation
 import transformation
 
 importlib.reload(validation)
 importlib.reload(transformation)
-importlib.reload(development)
 
 path_to_raw = "./input/test_input.csv"
-path_to_log = "./log_test.csv"
-path_to_report = "./output/report.csv"
+path_to_log = "./test_log.csv"
 
 
 def main():
     """Test that the GEOID is the concatenation of its components."""
     # dictionaries {column_index, column_name} & {column_name, column_index}
     cols, cols_inds = transformation.create_column_dicts(path_to_raw)
-
-    select_cols = ["GEOID", "CBSA09", "CBSA_T", "POP00", "POP10", "PPCHG"]
-
     validation.test_geoid_concat(path_to_raw, path_to_log, cols, cols_inds)
 
 

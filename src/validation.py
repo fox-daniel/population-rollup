@@ -1,35 +1,34 @@
 import csv
+from datetime import datetime
 
 
 def test_geoid_concat(path_to_csv, path_to_log, cols, cols_inds):
-    """This tests whether GEOID is the concatenation of ST10+COU1-+TRACT10."""
-    cols_concat = ["GEOID", "ST10", "COU10", "TRACT10", "CBSA09", "CBSA_T", "POP00"]
+    """This tests whether GEOID is the concatenation of ST10, COU1, TRACT10."""
+    cols_concat = ["GEOID", "ST10", "COU10", "TRACT10"]
 
     with open(path_to_csv, newline="") as csvfile:
         censusreader = csv.reader(csvfile, delimiter=",")
         with open(path_to_log, mode="a", newline="") as logfile:
-            geowriter = csv.writer(logfile, delimiter=",")
+            geowriter = csv.writer(logfile, delimiter=",", quoting=csv.QUOTE_MINIMAL)
             geowriter.writerow(
-                ["Rows for which GEOID is not the concatenation of its parts."]
+                [f"****Rows for which GEOID is not the concatenation of its parts.**** \n Returned from validation.test_geoid_concat() at {datetime.now().isoformat(timespec='seconds')} \n Rows with errors:"]
             )
-            i = 0
+            rows_checked = 0
+            rows_with_errors = 0
             error_found = False
             # move to the first row with data
             row = next(censusreader)
             for row in censusreader:
-                new_row = [
-                    row[cols_inds["GEOID"]],
-                    row[cols_inds["ST10"]]
-                    + row[cols_inds["COU10"]]
-                    + row[cols_inds["TRACT10"]],
-                ]
-                if new_row[0] != new_row[1]:
+                if row[cols_inds["GEOID"]] !=  row[cols_inds["ST10"]]   + row[cols_inds["COU10"]]  + row[cols_inds["TRACT10"]]:
                     error_found = True
                     geowriter.writerow(row)
-                i += 1
+                    rows_with_errors += 1
+                rows_checked += 1
             if error_found == False:
-                geowriter.writerow(["No errors found:)"])
-            geowriter.writerow(["final row checked: {0}".format(i)])
+                geowriter.writerow(["****No errors found.****)"])
+            else:
+                geowriter.writerow([f"{rows_with_errors} row(s) with errors."])
+            geowriter.writerow(["Rows checked: {0}".format(rows_checked)])
 
 
 def count_rows(path_to_csv):
