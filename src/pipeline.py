@@ -32,8 +32,10 @@ cols, cols_inds = transformation.create_column_dicts(path_to_raw)
 # Validation - GEOID
 validation.test_geoid_concat(path_to_raw, path_to_log, cols_inds)
 
+
 selected_columns = ["GEOID", "CBSA09", "CBSA_T", "POP00", "POP10", "PPCHG"]
 col_types = ["int", "int", "str", "int", "int", "float"]
+
 
 # transform 1
 transformation.select_columns(

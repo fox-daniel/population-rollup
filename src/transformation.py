@@ -1,6 +1,6 @@
 import csv
 from collections import defaultdict
-
+from datetime import datetime
 
 def create_column_dicts(path_to_input):
     """Creates dictionaries: {column_index, column_name} and
@@ -79,6 +79,11 @@ def groupby_cbsa(path_to_input, path_to_log, select_cols, cols_inds):
     error_rows = []
     with open(path_to_log, "a", newline="") as errorfile:
         errorwriter = csv.writer(errorfile, delimiter=",")
+        errorwriter.writerow(
+                [
+                    f"****Rows for which gropuby encounters an error.\n Returned from transformation.groupby_cbsa at {datetime.now().isoformat(timespec='seconds')}\n"
+                ]
+            )
         with open(path_to_input, newline="") as csvfile:
             inputreader = csv.reader(csvfile, delimiter=",")
             row = next(inputreader)
