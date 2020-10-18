@@ -33,7 +33,7 @@ def clean_types(path_to_input, path_to_ouput, col_types):
     """
 
     def clean_type(astring, atype):
-        """Cleans a string so that it is ready to be read as the appropriate type."""
+        """Cleans a string so that it is ready to be read as the specified type."""
 
         if atype == "int":
             """removes commas and quotes"""
@@ -60,13 +60,13 @@ def clean_types(path_to_input, path_to_ouput, col_types):
                 transwriter.writerow(row)
 
 
-# this will be simplified, with much of its functionality moved into separate functions
-def groupby_cbsa(path_to_input, path_to_log, select_cols, cols, cols_inds):
+def groupby_cbsa(path_to_input, path_to_log, select_cols, cols_inds):
     """
     Aggregate population data into CBSA's and return dictionaries with the CBSA09 code as the key.
     Input:
     path_to_input -  the path to csv file with the population data
-    cols - dictionary: {index:column_name}
+    path_to_log - the path to the log file that records errors
+    select_cols - the list of selected column names 
     cols_inds - dictionary: {column_name:index}
     Output:
 

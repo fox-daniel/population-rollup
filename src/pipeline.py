@@ -45,7 +45,7 @@ transformation.clean_types(
     ppchg_avg,
     error_rows,
 ) = transformation.groupby_cbsa(
-    path_to_cleaned_types, path_to_log, selected_columns, cols, cols_inds
+    path_to_cleaned_types, path_to_log, selected_columns, cols_inds
 )
 
 transformation.write_report(
