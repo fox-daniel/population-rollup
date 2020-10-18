@@ -2,7 +2,7 @@ import csv
 from datetime import datetime
 
 
-def test_geoid_concat(path_to_csv, path_to_log, cols, cols_inds):
+def test_geoid_concat(path_to_csv, path_to_log, cols_inds):
     """This tests whether GEOID is the concatenation of ST10, COU1, TRACT10."""
     cols_concat = ["GEOID", "ST10", "COU10", "TRACT10"]
 

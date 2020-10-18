@@ -21,6 +21,10 @@ path_to_selected_columns = "./src/transformed_data/selected_columns.csv"
 path_to_cleaned_types = "./src/transformed_data/cleaned_types.csv"
 path_to_log = "./src/logs/log.csv"
 
+# Begin Pipeline
+
+# Validation - GEOID
+test_geoid_concat(path_to_raw, path_to_log, cols_inds)
 
 # dictionaries {column_index, column_name} & {column_name, column_index}
 cols, cols_inds = transformation.create_column_dicts(path_to_raw)
