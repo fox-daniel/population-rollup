@@ -1,4 +1,3 @@
-# import csv
 import importlib
 import argparse
 import validation
