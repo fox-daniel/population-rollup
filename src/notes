@@ -21,6 +21,17 @@ CBSA title has "," so enclose title in double quotes
 How will my solution scale? 
 	
 
+clean up code according to: https://imankulov.name/posts/python-cleanup/
+	- revise README according to models listed
+	- update requirements file
+	- remove unused imports
+	- remove unused variables
+	- follow PEP-8 naming conventions
+	- format code with 'black' (learn to use from command line)
+	[NOT DONE]- run pylint
+	- remove debugging prints
+	- remove commented-out code
+
 Tests: separate folder for each test (functional correctness & scaling (memory usage vs time))
 	-to run test, move input & output csv's to top-level input and output directories and run code
 	-use pandas to generate input and output files for tests

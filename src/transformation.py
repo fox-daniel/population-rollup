@@ -68,7 +68,6 @@ def groupby_cbsa(path_to_input, path_to_log, select_cols, cols, cols_inds):
     path_to_input -  the path to csv file with the population data
     cols - dictionary: {index:column_name}
     cols_inds - dictionary: {column_name:index}
-    num_rows - the maximum number of rows to use as input
     Output:
 
     """
