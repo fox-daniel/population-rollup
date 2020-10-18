@@ -4,7 +4,7 @@ population_rollup computes aggregate statistics for Core Based Statistical Areas
 
 ## Installation
 
-From the directory in which you want the project to live, clone the repo:
+From the directory in which you want the project to live, clone the repo.
 
 ```
 git clone https://github.com/fox-daniel/population-rollup population_rollup
@@ -15,13 +15,13 @@ This will reproduce the project within the directory "population_rollup".
 
 Copy the file "censustract-00-10.csv" to /population_rollup/input.
 
-From within the directory, population_rollup, run the bash command:
+From within the directory, population_rollup, run the following bash command.
 ```
 ./run.sh
 ```
 The file "report.csv" will be written to /population_rollup/output.
 
-The "run.sh" file runs the command:
+The "run.sh" file runs the following command.
 ```
 python3.7 ./src/pipeline.py ./input/censustract-00-10.csv ./output/report.csv
 ```
