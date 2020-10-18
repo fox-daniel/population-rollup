@@ -132,7 +132,6 @@ Output:
     with open(path_to_output, "w", newline="") as csvfile:
         csvwriter = csv.writer(csvfile, delimiter=",")
         for k in sorted(tract_count.keys()):
-            # print(k, pop00_count[k], pop10_count[k], ppchg_avg[k])
             csvwriter.writerow(
                 [
                     k,
