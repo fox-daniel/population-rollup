@@ -1,5 +1,6 @@
 import argparse
 import transformation
+import validation
 
 parser = argparse.ArgumentParser("Accept input and output file paths.")
 parser.add_argument(
@@ -23,11 +24,13 @@ path_to_log = "./src/logs/log.csv"
 
 # Begin Pipeline
 
-# Validation - GEOID
-test_geoid_concat(path_to_raw, path_to_log, cols_inds)
 
 # dictionaries {column_index, column_name} & {column_name, column_index}
 cols, cols_inds = transformation.create_column_dicts(path_to_raw)
+
+
+# Validation - GEOID
+validation.test_geoid_concat(path_to_raw, path_to_log, cols_inds)
 
 selected_columns = ["GEOID", "CBSA09", "CBSA_T", "POP00", "POP10", "PPCHG"]
 col_types = ["int", "int", "str", "int", "int", "float"]

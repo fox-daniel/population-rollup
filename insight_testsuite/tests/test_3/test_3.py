@@ -14,7 +14,6 @@ path_to_log = "./test_log.csv"
 path_to_report = "./output/test_report.csv"
 
 
-
 def main():
     """Test that the GEOID is the concatenation of its components."""
     # dictionaries {column_index, column_name} & {column_name, column_index}

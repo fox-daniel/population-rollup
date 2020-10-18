@@ -11,7 +11,9 @@ def test_geoid_concat(path_to_csv, path_to_log, cols_inds):
         with open(path_to_log, mode="a", newline="") as logfile:
             geowriter = csv.writer(logfile, delimiter=",", quoting=csv.QUOTE_MINIMAL)
             geowriter.writerow(
-                [f"****Rows for which GEOID is not the concatenation of its parts.**** \n Returned from validation.test_geoid_concat() at {datetime.now().isoformat(timespec='seconds')} \n Rows with errors:"]
+                [
+                    f"****Rows for which GEOID is not the concatenation of its parts.**** \n Returned from validation.test_geoid_concat() at {datetime.now().isoformat(timespec='seconds')} \n Rows with errors:"
+                ]
             )
             rows_checked = 0
             rows_with_errors = 0
@@ -19,7 +21,9 @@ def test_geoid_concat(path_to_csv, path_to_log, cols_inds):
             # move to the first row with data
             row = next(censusreader)
             for row in censusreader:
-                if row[cols_inds["GEOID"]] !=  row[cols_inds["ST10"]]   + row[cols_inds["COU10"]]  + row[cols_inds["TRACT10"]]:
+                if row[cols_inds["GEOID"]] != str(row[cols_inds["ST10"]]) + str(
+                    row[cols_inds["COU10"]]
+                ) + str(row[cols_inds["TRACT10"]]):
                     error_found = True
                     geowriter.writerow(row)
                     rows_with_errors += 1
