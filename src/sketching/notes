@@ -7,6 +7,19 @@ REMOVE development.py
 
 CREATE VIRTUALENV WITH JUST PYTHON3.7.3
 
+Validation:
+	Min
+	Max
+	Median
+	Missing values
+	Type error
+	Not in cbsa 
+	Number of Pp00 = 0 
+	If PP00=0, then (X)
+	Positive number
+	Running mean, std 
+	Distance of value from mean - catch if too large
+
 Change pipeline so that there is only one load of the csv and all transformations are made in memory
 
 In pipeline: create list of paths to files and then use generator to call them and auto insert into functions?
