@@ -61,7 +61,7 @@ def test_types(path_to_input, path_to_log, cols_inds, col_types):
                 error = False
                 for i, atype in enumerate(col_types):
                     try:
-                        if atype != 'any':
+                        if (atype != 'any') & (row[i] != "(X)"):
                             col_types[i](row[i])
                     except ValueError:
                         error = True
