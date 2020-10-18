@@ -26,7 +26,7 @@ def select_columns(path_to_input, path_to_ouput, selected_columns, cols_inds):
                 transwriter.writerow([row[cols_inds[col]] for col in selected_columns])
 
 
-def clean_types(path_to_input, path_to_ouput, cols, cols_inds, col_types):
+def clean_types(path_to_input, path_to_ouput, cols_inds, col_types):
     """Clean types by formatting for appropriate type. Currently it
     removes quotes and commas from floats and ints.
     Column Types: int, int, str, int, int, float

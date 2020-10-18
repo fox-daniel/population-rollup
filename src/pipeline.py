@@ -33,7 +33,7 @@ transformation.select_columns(
 cols, cols_inds = transformation.create_column_dicts(path_to_selected_columns)
 
 transformation.clean_types(
-    path_to_selected_columns, path_to_cleaned_types, cols, cols_inds, col_types
+    path_to_selected_columns, path_to_cleaned_types, cols_inds, col_types
 )
 
 # transform 2
