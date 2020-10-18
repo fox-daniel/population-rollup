@@ -1,6 +1,9 @@
 DONT FORGET TO REREAD THE DIRECTIONS
 REMOVE RELOAD and its IMPORTS
 RUN ON AWS LINUX MACHINE by cloning git repo, not from files on my machine
+REMOVE SKETCHING FOLDER
+REMOVE RUN_AND_CLONE.SH
+REMOVE development.py
 
 CREATE VIRTUALENV WITH JUST PYTHON3.7.3
 
@@ -16,6 +19,8 @@ CBSA title has "," so enclose title in double quotes
 
 How will my solution scale? 
 	
+groupby_cbsa:
+	use defaultdict for cbsa_title with default as "*missing*"
 
 clean up code according to: https://imankulov.name/posts/python-cleanup/
 	- update requirements file

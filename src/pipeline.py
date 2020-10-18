@@ -1,9 +1,17 @@
 import argparse
 import transformation
 
-parser=argparse.ArgumentParser("Accept input and output file paths.")
-parser.add_argument("path_to_input_file", help="The input path should be './input/censustract-00-10.csv'.", type=str)
-parser.add_argument("path_to_output_file", help="The output path should be './output/report.csv'.", type=str)
+parser = argparse.ArgumentParser("Accept input and output file paths.")
+parser.add_argument(
+    "path_to_input_file",
+    help="The input path should be './input/censustract-00-10.csv'.",
+    type=str,
+)
+parser.add_argument(
+    "path_to_output_file",
+    help="The output path should be './output/report.csv'.",
+    type=str,
+)
 args = parser.parse_args()
 
 # file paths
@@ -28,9 +36,7 @@ transformation.select_columns(
 # new dictionaries for selected columns {column_index, column_name} & {column_name, column_index}
 cols, cols_inds = transformation.create_column_dicts(path_to_selected_columns)
 
-transformation.clean_types(
-    path_to_selected_columns, path_to_cleaned_types, col_types
-)
+transformation.clean_types(path_to_selected_columns, path_to_cleaned_types, col_types)
 
 # transform 2
 (
