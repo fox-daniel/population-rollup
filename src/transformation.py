@@ -112,14 +112,23 @@ def groupby_cbsa(path_to_input, path_to_log, select_cols, cols_inds):
 
 def write_report(
     path_to_output,
-    cols,
-    cols_inds,
     cbsa_title,
     tract_count,
     pop00_count,
     pop10_count,
     ppchg_avg,
 ):
+"""Writes the aggregate stats to the specified path.
+Input:
+    path_to_output - the path to the output file
+    cbsa_title - dictionary {CBSA09 : CBSA_T}
+    tract_count - dictionary {CBSA09 : Count of tracts returned from groupby_cbsa func}
+    pop00_count - dictionary {CBSA09 : POP00}
+    pop10_count - dictionary {CBSA09 : POP10}
+    ppchg_avg - dictionary {CBSA09 : PPCHG}
+Output:
+    csv file to which the aggregate stats are written
+"""
     with open(path_to_output, "w", newline="") as csvfile:
         csvwriter = csv.writer(csvfile, delimiter=",")
         for k in sorted(tract_count.keys()):
