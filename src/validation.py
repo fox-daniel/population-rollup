@@ -38,7 +38,8 @@ def test_row_length(path_to_csv, path_to_log, length=None):
             rowlength_writer.writerow([])
             rowlength_writer.writerow([])
 
-def test_types(path_to_input, path_to_log, col_types):
+
+def test_types(path_to_input, path_to_log, cols_inds, col_types):
     """Test if values conform to type requirements.
     Column Names: GEOID,ST10,COU10,TRACT10,AREAL10,AREAW10,CSA09,CBSA09,CBSA_T,MDIV09,CSI,COFLG,POP00,HU00,POP10,HU10,NPCHG,PPCHG,NHCHG,PHCHG
     Column Types: int, int, int, int, float, float, int, int, str, any, int, str, int, int, int, int, int, float, int, float
@@ -50,22 +51,30 @@ def test_types(path_to_input, path_to_log, col_types):
             logwriter = csv.writer(logfile, delimiter=",", quoting=csv.QUOTE_MINIMAL)
             logwriter.writerow(
                 [
-                    f"****Rows for which values do not conform to data type.**** \n Returned from validation.test_types() at {datetime.now().isoformat(timespec='seconds')} \n Row with errors followed by a row with problem values:"
+                    f"****Rows for which values do not conform to data type.**** \n Returned from validation.test_types() at {datetime.now().isoformat(timespec='seconds')} \n Row that has errors followed a row for each problem value:"
                 ]
             )
+            total_errors = False
             row = next(inputreader)
             for row in inputreader:
                 errors_in_row = {}
                 error = False
                 for i, atype in enumerate(col_types):
                     try:
-                        row[i] = clean_type(row[i], atype)
-                    except TypeError as err:
+                        if atype != 'any':
+                            col_types[i](row[i])
+                    except ValueError:
                         error = True
-                        errors_in_row[i] = (err, row[i])
-                if error == True
-                transwriter.writerow(row)
-                transwriter.writerow([error for error in errors_in_row])
+                        errors_in_row[i] = ("ValueError", col_types[i], row[i])
+                if error == True:
+                    total_errors = True
+                    logwriter.writerow(row)
+                    logwriter.writerow([f"{avalue[0]}: expected {avalue[1]}, received {avalue[2]}.\n" for avalue in errors_in_row.values()])
+            if total_errors == False:
+                logwriter.writerow(["No type errors."])
+            logwriter.writerow([])
+            logwriter.writerow([])
+            
 
 def test_geoid_concat(path_to_csv, path_to_log, cols_inds):
     """This tests whether GEOID is the concatenation of ST10, COU1, TRACT10."""
