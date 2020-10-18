@@ -26,7 +26,7 @@ col_types = ["int", "int", "str", "int", "int", "float"]
 
 # transform 1
 transformation.select_columns(
-    path_to_raw, path_to_selected_columns, selected_columns, cols, cols_inds
+    path_to_raw, path_to_selected_columns, selected_columns, cols_inds
 )
 
 # new dictionaries for selected columns {column_index, column_name} & {column_name, column_index}

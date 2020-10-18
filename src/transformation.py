@@ -11,13 +11,13 @@ def create_column_dicts(path_to_input):
         row = next(inputreader)
         for i, col in enumerate(row):
             cols[i] = col
-    # dictionary {column_name, column_index}
+    # reverse dictionary: {column_name, column_index}
     cols_inds = {v: k for k, v in cols.items()}
     return cols, cols_inds
 
 
-def select_columns(path_to_input, path_to_ouput, selected_columns, cols, cols_inds):
-    """Write the relevant columns to a new csv file."""
+def select_columns(path_to_input, path_to_ouput, selected_columns, cols_inds):
+    """Write the selected columns to a new csv file."""
     with open(path_to_input, newline="") as inputfile:
         inputreader = csv.reader(inputfile, delimiter=",")
         with open(path_to_ouput, "w", newline="") as transfile:
