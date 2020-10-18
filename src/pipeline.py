@@ -52,8 +52,6 @@ transformation.clean_types(path_to_selected_columns, path_to_cleaned_types, col_
 
 transformation.write_report(
     path_to_report,
-    cols,
-    cols_inds,
     cbsa_title,
     tract_count,
     pop00_count,
