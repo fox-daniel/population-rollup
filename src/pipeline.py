@@ -1,9 +1,5 @@
-import importlib
 import argparse
-import validation
 import transformation
-
-importlib.reload(transformation)
 
 parser=argparse.ArgumentParser("Accept input and output file paths.")
 parser.add_argument("path_to_input_file", help="The input path should be './input/censustract-00-10.csv'.", type=str)
