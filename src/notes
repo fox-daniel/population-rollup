@@ -1,10 +1,6 @@
-REMOVE ROW LIMIT IN GROUPBY_CBSA
 DONT FORGET TO REREAD THE DIRECTIONS
-DONT FORGET TO APPLY black and other formatting and checks
 REMOVE RELOAD IMPORTS
 RUN ON AWS LINUX MACHINE by cloning git repo, not from files on my machine
-
-There are 74003 rows; row 0 is column names; 74002 rows of census data
 
 CREATE VIRTUALENV WITH JUST PYTHON3.7.3
 
@@ -22,10 +18,10 @@ How will my solution scale?
 	
 
 clean up code according to: https://imankulov.name/posts/python-cleanup/
-	- revise README according to models listed
 	- update requirements file
 	- remove unused imports
 	- remove unused variables
+	- revise README according to models listed
 	- follow PEP-8 naming conventions
 	- format code with 'black' (learn to use from command line)
 	[NOT DONE]- run pylint
