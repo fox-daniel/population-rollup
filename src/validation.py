@@ -32,8 +32,9 @@ def test_geoid_concat(path_to_csv, path_to_log, cols_inds):
                 geowriter.writerow(["****No errors found.****)"])
             else:
                 geowriter.writerow([f"{rows_with_errors} row(s) with errors."])
-            geowriter.writerow(["Rows checked: {0}".format(rows_checked)])
-
+            geowriter.writerow(["Rows checked: {0}.".format(rows_checked)])
+            geowriter.writerow([])
+            geowriter.writerow([])
 
 def count_rows(path_to_csv):
     with open(path_to_csv, newline="") as csvfile:
@@ -54,7 +55,9 @@ def test_row_length(path_to_csv, path_to_log, length=None):
         with open(path_to_log, mode="a", newline="") as logfile:
             rowlength_writer = csv.writer(logfile, delimiter=",")
             rowlength_writer.writerow(
-                ["Rows that have a different length than the first or as specified."]
+                [
+                    f"****Rows that have a different length than the first or as specified.**** \n Returned from validation.test_row_length() at {datetime.now().isoformat(timespec='seconds')} \n Rows with errors:"
+                ]
             )
             i = 0
             error_found = False
@@ -64,6 +67,9 @@ def test_row_length(path_to_csv, path_to_log, length=None):
                 row_length = len(row)
             else:
                 row_length = length
+            rowlength_writer.writerow(
+                [f"Rows should have {row_length} columns."]
+            )
             for row in censusreader:
                 if len(row) != row_length:
                     rowlength_writer.writerow(row)
@@ -71,4 +77,6 @@ def test_row_length(path_to_csv, path_to_log, length=None):
                 i += 1
             if error_found == False:
                 rowlength_writer.writerow(["No errors found:)"])
-            rowlength_writer.writerow(["final row checked: {0}".format(i)])
+            rowlength_writer.writerow(["final row checked: {0}.".format(i)])
+            rowlength_writer.writerow([])
+            rowlength_writer.writerow([])

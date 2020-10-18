@@ -29,7 +29,11 @@ path_to_log = "./src/logs/log.csv"
 cols, cols_inds = transformation.create_column_dicts(path_to_raw)
 
 
-# Validation - GEOID
+
+
+# Validation
+validation.test_row_length(path_to_raw, path_to_log)
+
 validation.test_geoid_concat(path_to_raw, path_to_log, cols_inds)
 
 
