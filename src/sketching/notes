@@ -17,7 +17,7 @@ Validation:
 	Number of Pp00 = 0 
 	If PP00=0, then (X)
 	Positive number
-	Running mean, std 
+	Running mean, std, etc 
 	Distance of value from mean - catch if too large
 
 Change pipeline so that there is only one load of the csv and all transformations are made in memory
