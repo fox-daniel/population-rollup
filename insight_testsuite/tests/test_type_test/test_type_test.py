@@ -9,7 +9,7 @@ import transformation
 importlib.reload(validation)
 importlib.reload(transformation)
 
-path_to_raw = "./input/test_input.csv"
+path_to_raw = "./input/censustract-00-10.csv"
 path_to_log = "./test_log.csv"
 
 

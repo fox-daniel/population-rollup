@@ -23,8 +23,6 @@ path_to_cleaned_types = "./src/transformed_data/cleaned_types.csv"
 path_to_log = "./src/logs/log.csv"
 
 # Begin Pipeline
-
-
 # dictionaries {column_index, column_name} & {column_name, column_index}
 cols, cols_inds = transformation.create_column_dicts(path_to_raw)
 
