@@ -2,6 +2,7 @@ import csv
 from collections import defaultdict
 from datetime import datetime
 
+
 def create_column_dicts(path_to_input):
     """Creates dictionaries: {column_index, column_name} and
     {column_name, column_index}"""
@@ -80,10 +81,10 @@ def groupby_cbsa(path_to_input, path_to_log, select_cols, cols_inds):
     with open(path_to_log, "a", newline="") as errorfile:
         errorwriter = csv.writer(errorfile, delimiter=",")
         errorwriter.writerow(
-                [
-                    f"****Rows for which gropuby encounters an error.\n Returned from transformation.groupby_cbsa at {datetime.now().isoformat(timespec='seconds')}\n"
-                ]
-            )
+            [
+                f"****Rows for which gropuby encounters an error.\n Returned from transformation.groupby_cbsa at {datetime.now().isoformat(timespec='seconds')}\n"
+            ]
+        )
         with open(path_to_input, newline="") as csvfile:
             inputreader = csv.reader(csvfile, delimiter=",")
             row = next(inputreader)
@@ -93,26 +94,30 @@ def groupby_cbsa(path_to_input, path_to_log, select_cols, cols_inds):
                 if cbsa != "":
                     cbsa_title[cbsa] = row[cols_inds["CBSA_T"]]
                     tract_count[cbsa] += 1
-                    try: 
+                    try:
                         pop00_count[cbsa] += int(row[cols_inds["POP00"]])
                     except TypeError as err:
                         errorwriter.writerow(
-                        ["TypeError: "] + [row[cols_inds[col]] for col in select_cols]
-                    )
+                            ["TypeError: "]
+                            + [row[cols_inds[col]] for col in select_cols]
+                        )
                     except ValueError as err:
                         errorwriter.writerow(
-                        ["ValueError: "] + [row[cols_inds[col]] for col in select_cols]
-                    )
+                            ["ValueError: "]
+                            + [row[cols_inds[col]] for col in select_cols]
+                        )
                     try:
                         pop10_count[cbsa] += int(row[cols_inds["POP10"]])
                     except TypeError as err:
                         errorwriter.writerow(
-                        ["TypeError: "] + [row[cols_inds[col]] for col in select_cols]
-                    )
+                            ["TypeError: "]
+                            + [row[cols_inds[col]] for col in select_cols]
+                        )
                     except ValueError as err:
                         errorwriter.writerow(
-                        ["ValueError: "] + [row[cols_inds[col]] for col in select_cols]
-                    )
+                            ["ValueError: "]
+                            + [row[cols_inds[col]] for col in select_cols]
+                        )
                     if row[cols_inds["PPCHG"]] == "(X)":
                         ppchg_avg[cbsa] = "(X)"
                     else:
@@ -120,11 +125,13 @@ def groupby_cbsa(path_to_input, path_to_log, select_cols, cols_inds):
                             ppchg_avg[cbsa] += float(row[cols_inds["PPCHG"]])
                         except TypeError as err:
                             errorwriter.writerow(
-                                ["TypeError: "] + [row[cols_inds[col]] for col in select_cols]
+                                ["TypeError: "]
+                                + [row[cols_inds[col]] for col in select_cols]
                             )
                         except ValueError as err:
                             errorwriter.writerow(
-                                ["ValueError: "] + [row[cols_inds[col]] for col in select_cols]
+                                ["ValueError: "]
+                                + [row[cols_inds[col]] for col in select_cols]
                             )
                 i += 1
     for k, v in ppchg_avg.items():

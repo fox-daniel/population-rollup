@@ -30,7 +30,28 @@ cols, cols_inds = transformation.create_column_dicts(path_to_raw)
 # Validation
 validation.test_row_length(path_to_raw, path_to_log)
 # col_types = ["int", "int", "int", "int", "float", "float", "int", "int", "str", "any", "int", "str", "int", "int", "int", "int", "int", "float", "int", "float"]
-col_types = [int, int, int, int, float, float, int, int, str, any, int, str, int, int, int, int, int, float, int, float]
+col_types = [
+    int,
+    int,
+    int,
+    int,
+    float,
+    float,
+    int,
+    int,
+    str,
+    any,
+    int,
+    str,
+    int,
+    int,
+    int,
+    int,
+    int,
+    float,
+    int,
+    float,
+]
 validation.test_types(path_to_raw, path_to_log, cols_inds, col_types)
 validation.test_geoid_concat(path_to_raw, path_to_log, cols_inds)
 

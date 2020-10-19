@@ -32,16 +32,19 @@ def main():
         pop10_count,
         ppchg_avg,
         error_rows,
-    ) = transformation.groupby_cbsa(path_to_selected_columns, path_to_log, selected_columns, cols_inds)
+    ) = transformation.groupby_cbsa(
+        path_to_selected_columns, path_to_log, selected_columns, cols_inds
+    )
 
     transformation.write_report(
-    path_to_report,
-    cbsa_title,
-    tract_count,
-    pop00_count,
-    pop10_count,
-    ppchg_avg,
-	)
+        path_to_report,
+        cbsa_title,
+        tract_count,
+        pop00_count,
+        pop10_count,
+        ppchg_avg,
+    )
+
 
 if __name__ == "__main__":
     main()

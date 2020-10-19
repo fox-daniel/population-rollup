@@ -24,9 +24,7 @@ def test_row_length(path_to_csv, path_to_log, length=None):
                 row_length = len(row)
             else:
                 row_length = length
-            rowlength_writer.writerow(
-                [f"Rows should have {row_length} columns."]
-            )
+            rowlength_writer.writerow([f"Rows should have {row_length} columns."])
             for row in censusreader:
                 if len(row) != row_length:
                     rowlength_writer.writerow(row)
@@ -61,7 +59,7 @@ def test_types(path_to_input, path_to_log, cols_inds, col_types):
                 error = False
                 for i, atype in enumerate(col_types):
                     try:
-                        if (atype != 'any') & (row[i] != "(X)"):
+                        if (atype != "any") & (row[i] != "(X)"):
                             col_types[i](row[i])
                     except ValueError:
                         error = True
@@ -69,12 +67,17 @@ def test_types(path_to_input, path_to_log, cols_inds, col_types):
                 if error == True:
                     total_errors = True
                     logwriter.writerow(row)
-                    logwriter.writerow([f"{avalue[0]}: expected {avalue[1]}, received {avalue[2]}.\n" for avalue in errors_in_row.values()])
+                    logwriter.writerow(
+                        [
+                            f"{avalue[0]}: expected {avalue[1]}, received {avalue[2]}.\n"
+                            for avalue in errors_in_row.values()
+                        ]
+                    )
             if total_errors == False:
                 logwriter.writerow(["No type errors."])
             logwriter.writerow([])
             logwriter.writerow([])
-            
+
 
 def test_geoid_concat(path_to_csv, path_to_log, cols_inds):
     """This tests whether GEOID is the concatenation of ST10, COU1, TRACT10."""
@@ -109,6 +112,7 @@ def test_geoid_concat(path_to_csv, path_to_log, cols_inds):
             logwriter.writerow(["Rows checked: {0}.".format(rows_checked)])
             logwriter.writerow([])
             logwriter.writerow([])
+
 
 def count_rows(path_to_csv):
     with open(path_to_csv, newline="") as csvfile:
