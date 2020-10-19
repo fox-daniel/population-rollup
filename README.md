@@ -30,10 +30,20 @@ The variables for the script pipeline.py should be the paths (relative to popula
 ### PPCH = '(X)'
 When PP00 is 0 the PPCH is reported as infinite using the symbol '(X)'. This is done even if PP10 is also 0 even though in that case one could argue to report the PPCH as 0. When a CBSA contains a census tract for which PPCH is reported as '(X)', then the average PPCH over the CBSA is reported as '(X)' under the convention that infinity plus a finite number (or infinity) is infinity. Other reporting options might prove more useful. For example, the census tracts with PPCH = '(X)' could be dropped from the computation of the average. Another possibility would be to set PPCH = 0 if PP00 = PP10 = 0; this would apply to some CBSAs but still require a choice to be made when PP00 = 0 and PP10 > 0.
 
+### test_type_test
+This checks whether values in the csv can be converted to the appropriate data type. If an exception is raised this is written to a log.
+
 ### test_no_cbsa
 This test runs an abbreviated version of the pipeline on a test csv in which the CBSA09 is missing for one of the two rows. The output correctly only reflects the single row with the CBSA09.
 
- 
+### test_row_length
+This tests whether the row lengths remains constant.
+
+### test_groupby_cbsa
+This tests the groupby function which computes aggregate statistics. 
+
+### test_geoid
+This tests whether the GEOID is the concatenation of ST10, COU10,and TRACT10.
 
 ### Further Work
 This code could be improved to scale better in the following ways.
