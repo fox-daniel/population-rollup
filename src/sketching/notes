@@ -28,8 +28,6 @@ Switch dictionary access to .get method and report to error log
 
 CSI = 3 if outside of CBSA
 
-CBSA title has "," so enclose title in double quotes
-
 How will my solution scale? 
 	
 groupby_cbsa:
