@@ -82,7 +82,7 @@ def groupby_cbsa(path_to_input, path_to_log, select_cols, cols_inds):
         errorwriter = csv.writer(errorfile, delimiter=",")
         errorwriter.writerow(
             [
-                f"****Rows for which gropuby encounters an error.\n Returned from transformation.groupby_cbsa at {datetime.now().isoformat(timespec='seconds')}\n"
+                f"****Rows for which groupby encounters an error.\n Returned from transformation.groupby_cbsa at {datetime.now().isoformat(timespec='seconds')}\n"
             ]
         )
         with open(path_to_input, newline="") as csvfile:
@@ -138,62 +138,6 @@ def groupby_cbsa(path_to_input, path_to_log, select_cols, cols_inds):
         if ppchg_avg[k] != "(X)":
             ppchg_avg[k] = round(ppchg_avg[k] / tract_count[k], 2)
     return cbsa_title, tract_count, pop00_count, pop10_count, ppchg_avg, error_rows
-
-
-# def groupby_cbsa(path_to_input, path_to_log, select_cols, cols_inds):
-#     """
-#     Aggregate population data into CBSA's and return dictionaries with the CBSA09 code as the key.
-#     Input:
-#     path_to_input -  the path to csv file with the population data
-#     path_to_log - the path to the log file that records errors
-#     select_cols - the list of selected column names
-#     cols_inds - dictionary: {column_name:index}
-#     Output:
-
-#     """
-#     cbsa_title = {}
-#     tract_count = defaultdict(int)
-#     pop00_count = defaultdict(int)
-#     pop10_count = defaultdict(int)
-#     ppchg_avg = defaultdict(float)
-#     error_rows = []
-#     with open(path_to_log, "a", newline="") as errorfile:
-#         errorwriter = csv.writer(errorfile, delimiter=",")
-#         errorwriter.writerow(
-#                 [
-#                     f"****Rows for which gropuby encounters an error.\n Returned from transformation.groupby_cbsa at {datetime.now().isoformat(timespec='seconds')}\n"
-#                 ]
-#             )
-#         with open(path_to_input, newline="") as csvfile:
-#             inputreader = csv.reader(csvfile, delimiter=",")
-#             row = next(inputreader)
-#             i = 0
-#             for row in inputreader:
-#                 try:
-#                     cbsa = row[cols_inds["CBSA09"]]
-#                     if cbsa != "":
-#                         cbsa_title[cbsa] = row[cols_inds["CBSA_T"]]
-#                         tract_count[cbsa] += 1
-#                         pop00_count[cbsa] += int(row[cols_inds["POP00"]])
-#                         pop10_count[cbsa] += int(row[cols_inds["POP10"]])
-#                         if row[cols_inds["PPCHG"]] == "(X)":
-#                             ppchg_avg[cbsa] = "(X)"
-#                         else:
-#                             ppchg_avg[cbsa] += float(row[cols_inds["PPCHG"]])
-#                 except TypeError as err:
-#                     errorwriter.writerow(
-#                         ["TypeError: "] + [row[cols_inds[col]] for col in select_cols]
-#                     )
-#                 except ValueError as err:
-#                     errorwriter.writerow(
-#                         ["ValueError: "] + [row[cols_inds[col]] for col in select_cols]
-#                     )
-#                 i += 1
-#     for k, v in ppchg_avg.items():
-#         if ppchg_avg[k] != "(X)":
-#             ppchg_avg[k] = round(ppchg_avg[k] / tract_count[k], 2)
-#     return cbsa_title, tract_count, pop00_count, pop10_count, ppchg_avg, error_rows
-
 
 def write_report(
     path_to_output,
