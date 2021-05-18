@@ -1,6 +1,6 @@
 # population_rollup
 
-population_rollup computes aggregate statistics for Core Based Statistical Areas (CBSA) using input data at the level of census tracts from the 2000 and 2010 censuses of the United States. It is being submitted for the Coding Challenge of the Data Engineering track at Insight Data Science.
+population_rollup computes aggregate statistics for Core Based Statistical Areas (CBSA) using input data at the level of census tracts from the 2000 and 2010 censuses of the United States. 
 
 ## Installation
 
